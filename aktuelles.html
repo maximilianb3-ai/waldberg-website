@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aktuelles – Wohngenossenschaft Waldberg e.G.</title>
+  <meta name="description" content="Aktuelle Mitteilungen, Termine und Hinweise der Wohngenossenschaft Waldberg e.G. in Greiz, Thüringen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --c-primary:        #0F766E;
+      --c-primary-light:  #14B8A6;
+      --c-primary-dark:   #0D6860;
+      --c-cta:            #0369A1;
+      --c-cta-hover:      #0284C7;
+      --c-bg:             #F0FDFA;
+      --c-bg-section:     #FFFFFF;
+      --c-text:           #134E4A;
+      --c-text-muted:     #5EADA5;
+      --c-text-light:     #99C9C4;
+      --c-border:         #CCEBE8;
+      --c-gold:           #B45309;
+      --font-heading:     'Cinzel', Georgia, serif;
+      --font-body:        'Josefin Sans', Helvetica, sans-serif;
+      --space-xs:  0.5rem;
+      --space-sm:  1rem;
+      --space-md:  2rem;
+      --space-lg:  4rem;
+      --space-xl:  8rem;
+      --max-width: 1200px;
+      --header-h:  76px;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-xl: 28px;
+      --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-fast:  200ms;
+      --dur-mid:   350ms;
+      --dur-slow:  600ms;
+      --shadow-sm: 0 1px 4px rgba(15,118,110,.08), 0 1px 2px rgba(15,118,110,.04);
+      --shadow-md: 0 4px 20px rgba(15,118,110,.12), 0 2px 8px rgba(15,118,110,.06);
+      --glass-bg:     rgba(240,253,250,.88);
+      --glass-border: rgba(20,184,166,.20);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--c-bg-section);
+      color: var(--c-text);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: .04em;
+      color: var(--c-text);
+    }
+    a { color: var(--c-primary); }
+
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+      transition-delay: var(--delay, 0ms);
+    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-md); }
+
+    /* ─── HEADER / NAV ─── */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--header-h); display: flex; align-items: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo-img { height: 56px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: var(--space-md); }
+    .nav-link {
+      font-family: var(--font-body); font-size: .8rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--c-text);
+      text-decoration: none; position: relative; padding: .25rem 0;
+      transition: color var(--dur-fast);
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 2px; background: var(--c-primary);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform var(--dur-mid) var(--ease-out);
+    }
+    .nav-link:hover::after, .nav-link.is-active::after { transform: scaleX(1); }
+    .nav-link.is-active { color: var(--c-primary); }
+    .nav-link-cta {
+      background: var(--c-cta); color: #fff !important;
+      padding: .5rem 1.2rem; border-radius: 100px;
+      transition: background var(--dur-fast), transform var(--dur-fast) !important;
+    }
+    .nav-link-cta::after { display: none; }
+    .nav-link-cta:hover { background: var(--c-cta-hover); transform: translateY(-1px); }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 6px); left: 50%;
+      transform: translateX(-50%) translateY(-4px);
+      background: var(--c-bg-section); border: 1px solid var(--c-border);
+      border-radius: var(--radius-md); padding: 6px 0; min-width: 185px;
+      box-shadow: var(--shadow-md); z-index: 200;
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--dur-fast), transform var(--dur-fast); text-align: left;
+    }
+    .nav-dropdown-menu::before { content: ''; position: absolute; top: -10px; left: 0; right: 0; height: 10px; }
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .nav-dropdown-item {
+      display: block; padding: 9px 18px;
+      font-family: var(--font-body); font-size: .75rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--c-text); text-decoration: none;
+      transition: background var(--dur-fast), color var(--dur-fast);
+    }
+    .nav-dropdown-item:hover { background: var(--c-bg); color: var(--c-primary); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { width: 24px; height: 2px; background: var(--c-text); border-radius: 2px; }
+
+    /* ─── MOBILE OVERLAY ─── */
+    .nav-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(13,27,26,.96); backdrop-filter: blur(12px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-md);
+      opacity: 0; pointer-events: none; transition: opacity var(--dur-mid);
+    }
+    .nav-overlay.is-open { opacity: 1; pointer-events: all; }
+    .nav-overlay .nav-link { font-size: 1.1rem; color: rgba(240,253,250,.85); }
+    .nav-overlay .nav-link:hover, .nav-overlay .nav-link.is-active { color: #F0FDFA; }
+    .nav-overlay-close {
+      position: absolute; top: var(--space-md); right: var(--space-md);
+      background: none; border: none; color: rgba(240,253,250,.6); font-size: 1.5rem; cursor: pointer;
+      transition: color var(--dur-fast);
+    }
+    .nav-overlay-close:hover { color: #F0FDFA; }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-body); font-weight: 700; font-size: .8125rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: 14px 30px; border-radius: 100px; border: 2px solid transparent;
+      cursor: pointer; transition: all var(--dur-fast) var(--ease-out);
+      white-space: nowrap; text-decoration: none;
+    }
+    .btn-primary { background: var(--c-cta); color: #fff; border-color: var(--c-cta); }
+    .btn-primary:hover { background: var(--c-cta-hover); border-color: var(--c-cta-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(3,105,161,.32); }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero {
+      background: var(--c-bg-section);
+      padding: var(--space-lg) 0 var(--space-md);
+      border-bottom: 1px solid var(--c-border);
+      margin-top: var(--header-h);
+    }
+    .breadcrumb { font-size: .8rem; color: var(--c-text-muted); margin-bottom: var(--space-sm); }
+    .breadcrumb a { color: var(--c-primary); text-decoration: none; transition: color var(--dur-fast); }
+    .breadcrumb a:hover { color: var(--c-primary-dark); }
+    .breadcrumb-sep { margin: 0 .4rem; color: var(--c-text-light); }
+    .page-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: .30em; text-transform: uppercase;
+      color: var(--c-text-muted); margin-bottom: var(--space-sm);
+    }
+    .page-h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15; color: var(--c-text); margin-bottom: var(--space-sm);
+    }
+    .page-lead { font-size: 1rem; color: var(--c-text-muted); line-height: 1.75; max-width: 52ch; }
+
+    /* ─── NEWS CARDS ─── */
+    .news-section { background: var(--c-bg-section); padding: var(--space-lg) 0; }
+    .news-list { display: flex; flex-direction: column; gap: var(--space-sm); max-width: 800px; }
+
+    .news-card {
+      background: var(--c-bg);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-md);
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: var(--space-md);
+      transition: transform var(--dur-mid) var(--ease-out), box-shadow var(--dur-mid) var(--ease-out);
+    }
+    .news-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+    .news-date {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border-right: 1px solid var(--c-border);
+      padding-right: var(--space-sm);
+      text-align: center;
+    }
+    .news-date .day {
+      font-family: var(--font-heading); font-size: 2rem; font-weight: 700;
+      color: var(--c-primary); line-height: 1;
+    }
+    .news-date .month {
+      font-size: .68rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--c-text-muted); margin-top: .3rem;
+    }
+    .news-date .year {
+      font-size: .68rem; color: var(--c-text-light); margin-top: .1rem;
+    }
+
+    .news-body { display: flex; flex-direction: column; gap: .45rem; }
+    .news-tag {
+      display: inline-block; font-family: var(--font-body);
+      font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      padding: .22rem .7rem; border-radius: 100px; width: fit-content;
+    }
+    .tag-info    { background: var(--c-bg); color: var(--c-primary); border: 1px solid var(--c-border); }
+    .tag-wartung { background: #FEF3C7; color: var(--c-gold);         border: 1px solid #FDE68A; }
+    .tag-termin  { background: #EDE9FE; color: #6D28D9;               border: 1px solid #C4B5FD; }
+
+    .news-body h2 {
+      font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700;
+      color: var(--c-text); letter-spacing: .03em; line-height: 1.3;
+    }
+    .news-body p { font-size: .88rem; color: var(--c-text-muted); line-height: 1.7; }
+
+    .news-empty {
+      text-align: center; padding: var(--space-lg) 0;
+      color: var(--c-text-muted); font-size: .9rem;
+    }
+
+    /* ─── FOOTER ─── */
+    .site-footer { background: #0D1B1A; color: rgba(240,253,250,.6); font-size: .85rem; }
+    .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: var(--space-xl); align-items: start; padding: var(--space-lg) 0; }
+    .footer-logo { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+    .footer-logo-img { height: 72px; width: auto; }
+    .footer-tagline { font-size: .8rem; letter-spacing: .08em; color: rgba(240,253,250,.35); margin-top: var(--space-xs); }
+    .footer-nav { display: flex; gap: var(--space-xl); }
+    .footer-col { display: flex; flex-direction: column; gap: var(--space-xs); }
+    .footer-col h4 { font-family: var(--font-heading); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(240,253,250,.4); margin-bottom: .5rem; }
+    .footer-col a { color: rgba(240,253,250,.6); text-decoration: none; font-size: .85rem; transition: color var(--dur-fast); }
+    .footer-col a:hover { color: var(--c-primary-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm) 0; border-top: 1px solid rgba(240,253,250,.08); font-size: .75rem; color: rgba(240,253,250,.3); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .footer-inner { grid-template-columns: 1fr; gap: var(--space-lg); }
+      .footer-nav { flex-direction: column; gap: var(--space-md); }
+    }
+    @media (max-width: 640px) {
+      :root { --space-xl: 4rem; --space-lg: 2.5rem; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: .25rem; }
+    }
+    @media (max-width: 560px) {
+      .news-card { grid-template-columns: 1fr; gap: var(--space-sm); }
+      .news-date {
+        border-right: none; border-bottom: 1px solid var(--c-border);
+        padding-right: 0; padding-bottom: var(--space-sm);
+        flex-direction: row; align-items: baseline;
+        gap: var(--space-xs); justify-content: flex-start; text-align: left;
+      }
+      .news-date .day { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-inner container">
+      <a href="waldberg-website.html" class="nav-logo" aria-label="Zur Startseite">
+        <img src="waldberg-logo.png" class="nav-logo-img" alt="Waldberg Wohngenossenschaft eG">
+      </a>
+      <nav class="nav-links" role="navigation" aria-label="Hauptnavigation">
+        <a href="waldberg-website.html#ueber-uns"      class="nav-link">Über uns</a>
+        <div class="nav-dropdown">
+          <a href="waldberg-website.html#wohnungen" class="nav-link">Wohnungen</a>
+          <div class="nav-dropdown-menu">
+            <a href="wohnblock.html" class="nav-dropdown-item">Der Wohnblock</a>
+            <a href="wohnungen.html" class="nav-dropdown-item">Freie Wohnungen</a>
+          </div>
+        </div>
+        <a href="waldberg-website.html#mitgliedschaft" class="nav-link">Mitgliedschaft</a>
+        <a href="aktuelles.html"                       class="nav-link is-active">Aktuelles</a>
+        <a href="ratgeber.html"                        class="nav-link">Ratgeber</a>
+        <a href="waldberg-website.html#kontakt"        class="nav-link nav-link-cta">Kontakt</a>
+      </nav>
+      <button class="nav-hamburger" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div id="nav-overlay" class="nav-overlay" aria-hidden="true" role="dialog" aria-label="Navigation">
+    <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Menü schließen">✕</button>
+    <a href="waldberg-website.html#ueber-uns"      class="nav-link">Über uns</a>
+    <a href="wohnblock.html"                       class="nav-link">Der Wohnblock</a>
+    <a href="wohnungen.html"                       class="nav-link">Freie Wohnungen</a>
+    <a href="waldberg-website.html#mitgliedschaft" class="nav-link">Mitgliedschaft</a>
+    <a href="ratgeber.html"           class="nav-link">Ratgeber</a>
+    <a href="aktuelles.html"                       class="nav-link is-active">Aktuelles</a>
+    <a href="waldberg-website.html#kontakt"        class="nav-link nav-link-cta">Kontakt</a>
+  </div>
+
+  <main>
+
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="waldberg-website.html">Startseite</a>
+          <span class="breadcrumb-sep" aria-hidden="true">›</span>
+          <span>Aktuelles</span>
+        </nav>
+        <p class="page-eyebrow reveal">Aktuelles</p>
+        <h1 class="page-h1 reveal" style="--delay:50ms">Schwarzes Brett</h1>
+        <p class="page-lead reveal" style="--delay:100ms">Aktuelle Mitteilungen, Termine und Hinweise der Wohngenossenschaft Waldberg e.G.</p>
+      </div>
+    </section>
+
+    <section class="news-section">
+      <div class="container">
+        <div class="news-list" id="newsList"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div>
+        <div class="footer-logo">
+          <img src="waldberg-logo.png" class="footer-logo-img" alt="Waldberg Wohngenossenschaft eG">
+        </div>
+        <p class="footer-tagline">Gemeinsam wohnen. Gemeinsam gestalten.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer-Navigation">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="waldberg-website.html#ueber-uns">Über uns</a>
+          <a href="waldberg-website.html#wohnungen">Wohnungen</a>
+          <a href="waldberg-website.html#mitgliedschaft">Mitgliedschaft</a>
+          <a href="waldberg-website.html#kontakt">Kontakt</a>
+        </div>
+        <div class="footer-col">
+          <h4>Ratgeber</h4>
+          <a href="blog-genossenschaftswohnung.html">Was ist eine Genossenschaftswohnung?</a>
+          <a href="blog-wohnungsmarkt-greiz.html">Mietpreise in Greiz 2026</a>
+        </div>
+        <div class="footer-col">
+          <h4>Rechtliches</h4>
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">Satzung</a>
+          <a href="#">Jahresbericht</a>
+          <a href="mitglieder.html">Mitgliederbereich</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 Wohngenossenschaft Waldberg e.G. · Greiz, Thüringen</p>
+      <p>Eingetragen im Genossenschaftsregister</p>
+    </div>
+  </footer>
+
+  <script>
+    // ─── NAV ──────────────────────────────────────────────────
+    const navToggle  = document.getElementById('nav-toggle');
+    const navOverlay = document.getElementById('nav-overlay');
+    const navClose   = document.getElementById('nav-overlay-close');
+
+    navToggle.addEventListener('click', () => {
+      navOverlay.classList.add('is-open');
+      navOverlay.setAttribute('aria-hidden', 'false');
+      navToggle.setAttribute('aria-expanded', 'true');
+    });
+    [navClose, navOverlay].forEach(el => {
+      el.addEventListener('click', e => {
+        if (e.target === navOverlay || e.target === navClose) {
+          navOverlay.classList.remove('is-open');
+          navOverlay.setAttribute('aria-hidden', 'true');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // ─── SCROLL REVEAL ────────────────────────────────────────
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // ─── NEWS ─────────────────────────────────────────────────
+    // Neue Meldung? Einfach oben einen Block einfügen.
+    // Datumsformat: "YYYY-MM-DD"
+    // category: "info" | "wartung" | "termin"
+    const NEWS = [
+      {
+        date: "2026-05-28",
+        category: "termin",
+        title: "Ordentliche Mitgliederversammlung 2026",
+        text: "Die diesjährige Mitgliederversammlung findet am 18. Juni um 18:00 Uhr statt. Alle Mitglieder erhalten die Einladung mit Tagesordnung per Post."
+      },
+      {
+        date: "2026-05-15",
+        category: "wartung",
+        title: "Wartung der Heizungsanlage",
+        text: "In der Woche ab dem 26. Mai werden die Heizungsanlagen gewartet. Es kann tagsüber kurzzeitig zu Unterbrechungen der Warmwasserversorgung kommen."
+      },
+      {
+        date: "2026-04-30",
+        category: "info",
+        title: "Neue Fahrradständer im Innenhof",
+        text: "Im Innenhof wurden überdachte Fahrradständer aufgestellt. Die Nutzung ist für alle Bewohnerinnen und Bewohner kostenfrei."
+      }
+    ];
+
+    const MONTHS = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
+    const TAG_LABELS = { info: "Info", wartung: "Wartung", termin: "Termin" };
+
+    function renderNews() {
+      const list = document.getElementById('newsList');
+      const sorted = [...NEWS].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (sorted.length === 0) {
+        list.innerHTML = '<p class="news-empty">Aktuell liegen keine Meldungen vor.</p>';
+        return;
+      }
+
+      list.innerHTML = sorted.map((item, i) => {
+        const d     = new Date(item.date);
+        const day   = d.getDate();
+        const month = MONTHS[d.getMonth()];
+        const year  = d.getFullYear();
+        const label = TAG_LABELS[item.category] ?? 'Info';
+
+        return `
+          <article class="news-card reveal" style="--delay:${i * 60}ms">
+            <div class="news-date" aria-label="${day}. ${month} ${year}">
+              <span class="day">${day}</span>
+              <span class="month">${month}</span>
+              <span class="year">${year}</span>
+            </div>
+            <div class="news-body">
+              <span class="news-tag tag-${item.category}">${label}</span>
+              <h2>${item.title}</h2>
+              <p>${item.text}</p>
+            </div>
+          </article>`;
+      }).join('');
+
+      // Reveal-Observer für dynamisch gerenderte Cards
+      list.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    }
+
+    renderNews();
+  </script>
+
+</body>
+</html>

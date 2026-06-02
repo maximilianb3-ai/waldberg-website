@@ -1,0 +1,2442 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wohngenossenschaft Waldberg e.G. – Greiz</title>
+  <meta name="description" content="Die Wohngenossenschaft Waldberg e.G. vermietet und verwaltet bezahlbare Wohnungen in Greiz, Thüringen. Werden Sie Mitglied.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    /* ─── RESET ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ─── DESIGN TOKENS ─────────────────────────────────────── */
+    :root {
+      --c-primary:        #0F766E;
+      --c-primary-light:  #14B8A6;
+      --c-primary-dark:   #0D6860;
+      --c-cta:            #0369A1;
+      --c-cta-hover:      #0284C7;
+      --c-bg:             #F0FDFA;
+      --c-bg-section:     #FFFFFF;
+      --c-text:           #134E4A;
+      --c-text-muted:     #5EADA5;
+      --c-text-light:     #99C9C4;
+      --c-border:         #CCEBE8;
+      --c-gold:           #B45309;
+      --c-gold-light:     #D97706;
+      --c-error:          #DC2626;
+      --c-success:        #16A34A;
+
+      --font-heading: 'Cinzel', Georgia, serif;
+      --font-body:    'Josefin Sans', Helvetica, sans-serif;
+
+      --space-xs:  0.5rem;
+      --space-sm:  1rem;
+      --space-md:  2rem;
+      --space-lg:  4rem;
+      --space-xl:  8rem;
+
+      --max-width: 1200px;
+      --header-h:  76px;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-fast: 200ms;
+      --dur-mid:  350ms;
+      --dur-slow: 600ms;
+
+      --shadow-sm: 0 1px 4px rgba(15,118,110,.08), 0 1px 2px rgba(15,118,110,.04);
+      --shadow-md: 0 4px 20px rgba(15,118,110,.12), 0 2px 8px rgba(15,118,110,.06);
+      --shadow-lg: 0 20px 60px rgba(15,118,110,.18), 0 8px 24px rgba(15,118,110,.08);
+
+      --glass-bg:     rgba(240,253,250,.78);
+      --glass-border: rgba(20,184,166,.20);
+    }
+
+    /* ─── BASE ───────────────────────────────────────────────── */
+    body {
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    body.nav-open { overflow: hidden; }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: .04em;
+      color: var(--c-text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    section[id] { scroll-margin-top: var(--header-h); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+
+    /* ─── LAYOUT HELPERS ─────────────────────────────────────── */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+    .section-pad  { padding: var(--space-xl) 0; }
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .30em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin-bottom: var(--space-md);
+    }
+    .section-heading {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      margin-bottom: var(--space-md);
+    }
+
+    /* ─── SCROLL-REVEAL ──────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity  var(--dur-slow) var(--ease-out),
+        transform var(--dur-slow) var(--ease-out);
+      transition-delay: var(--delay, 0ms);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── BUTTONS ────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: .8125rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 14px 30px;
+      border-radius: 100px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all var(--dur-fast) var(--ease-out);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--c-cta);
+      color: #fff;
+      border-color: var(--c-cta);
+    }
+    .btn-primary:hover {
+      background: var(--c-cta-hover);
+      border-color: var(--c-cta-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(3,105,161,.32);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--c-primary);
+      border-color: var(--c-primary);
+    }
+    .btn-ghost:hover {
+      background: var(--c-primary);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--c-text);
+      border-color: var(--c-border);
+    }
+    .btn-outline:hover {
+      border-color: var(--c-primary);
+      color: var(--c-primary);
+    }
+    .btn-ghost-light {
+      background: transparent;
+      color: #fff;
+      border-color: rgba(255,255,255,.5);
+    }
+    .btn-ghost-light:hover {
+      background: rgba(255,255,255,.15);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-sm { padding: 9px 20px; font-size: .75rem; }
+    .btn-full { width: 100%; }
+
+    /* ─── HEADER / NAV ───────────────────────────────────────── */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--header-h);
+      transition: background var(--dur-mid), box-shadow var(--dur-mid), border-color var(--dur-mid);
+    }
+    .site-header.scrolled {
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo-img {
+      height: 56px;
+      width: auto;
+      transition: filter var(--dur-mid);
+    }
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      background: var(--c-primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: .05em;
+      flex-shrink: 0;
+    }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .logo-name {
+      font-family: var(--font-heading);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--c-text);
+    }
+    .logo-sub {
+      font-family: var(--font-body);
+      font-size: .68rem;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-link {
+      font-family: var(--font-body);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-text);
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: color var(--dur-fast), background var(--dur-fast);
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 14px; right: 14px;
+      height: 2px;
+      background: var(--c-primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--dur-fast) var(--ease-out);
+      border-radius: 2px;
+    }
+    .nav-link:hover::after,
+    .nav-link.is-active::after { transform: scaleX(1); }
+    .nav-link:hover { color: var(--c-primary); }
+    .nav-link.is-active { color: var(--c-primary); }
+    .nav-link-cta {
+      background: var(--c-cta);
+      color: #fff !important;
+      padding: 9px 20px;
+      border-radius: 100px;
+    }
+    .nav-link-cta::after { display: none; }
+    .nav-link-cta:hover {
+      background: var(--c-cta-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(3,105,161,.3);
+    }
+
+    /* ── Nav Dropdown ── */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 6px); left: 50%;
+      transform: translateX(-50%) translateY(-4px);
+      background: var(--c-bg-section); border: 1px solid var(--c-border);
+      border-radius: var(--radius-md); padding: 6px 0; min-width: 185px;
+      box-shadow: var(--shadow-md); z-index: 200;
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--dur-fast), transform var(--dur-fast);
+      text-align: left;
+    }
+    .nav-dropdown-menu::before {
+      content: ''; position: absolute; top: -10px; left: 0; right: 0; height: 10px;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu {
+      opacity: 1; pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-item {
+      display: block; padding: 9px 18px;
+      font-family: var(--font-body); font-size: .75rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--c-text); text-decoration: none;
+      transition: background var(--dur-fast), color var(--dur-fast);
+    }
+    .nav-dropdown-item:hover { background: var(--c-bg); color: var(--c-primary); }
+    .site-header:not(.scrolled) .nav-dropdown-menu { color: var(--c-text); }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 42px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      gap: 6px;
+      padding: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--c-text);
+      border-radius: 2px;
+      transition: all var(--dur-mid) var(--ease-out);
+      transform-origin: center;
+    }
+    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* ─── HEADER: white text on dark hero ───────────────────── */
+    .site-header:not(.scrolled) .logo-name { color: #fff; }
+    .site-header:not(.scrolled) .logo-sub  { color: rgba(255,255,255,.5); }
+    .site-header:not(.scrolled) .nav-link:not(.nav-link-cta) { color: rgba(255,255,255,.85); }
+    .site-header:not(.scrolled) .nav-link:not(.nav-link-cta)::after { background: #fff; }
+    .site-header:not(.scrolled) .nav-hamburger span { background: #fff; }
+
+    /* ─── MOBILE NAV OVERLAY ─────────────────────────────────── */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--c-text);
+      z-index: 99;
+      transform: translateX(100%);
+      transition: transform var(--dur-mid) var(--ease-out);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+    .nav-overlay.is-open { transform: translateX(0); }
+    .nav-overlay .nav-link {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: rgba(240,253,250,.85);
+      letter-spacing: .08em;
+      padding: var(--space-sm) 0;
+    }
+    .nav-overlay .nav-link::after { display: none; }
+    .nav-overlay .nav-link:hover { color: var(--c-primary-light); }
+    .nav-overlay .nav-link-cta {
+      background: var(--c-cta);
+      color: #fff !important;
+      margin-top: var(--space-sm);
+      padding: 14px 36px;
+      font-size: 1rem;
+    }
+    .nav-overlay-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: none;
+      border: none;
+      color: rgba(240,253,250,.6);
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 8px;
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .section-hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #0D1B1A;
+    }
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    @media (max-width: 640px) {
+      .hero-bg-img {
+        background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80');
+      }
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(13,27,26,.45);
+    }
+    .hero-inner {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      width: 100%;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .30em;
+      text-transform: uppercase;
+      color: rgba(240,253,250,.65);
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--c-primary-light);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .hero-heading {
+      font-size: clamp(3.4rem, 7.5vw, 7.5rem);
+      font-weight: 900;
+      line-height: .98;
+      letter-spacing: .01em;
+      margin-bottom: var(--space-md);
+      color: #fff;
+    }
+    .hero-heading-accent { color: var(--c-primary-light); }
+    .hero-body {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: rgba(240,253,250,.72);
+      max-width: 560px;
+      margin: 0 auto var(--space-md);
+    }
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(240,253,250,.15);
+    }
+    .hero-stat { display: flex; flex-direction: column; gap: 2px; }
+    .stat-value {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .03em;
+    }
+    .stat-label {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(240,253,250,.5);
+    }
+    .hero-stat + .hero-stat { padding-left: var(--space-md); border-left: 1px solid rgba(240,253,250,.15); }
+    /* ─── HERO AERO BUTTON ──────────────────────────────────── */
+    .hero-btn-aero {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .hero-btn-text {
+      border-radius: 100px;
+      background: #d2f5a8;
+      padding: 14px 28px;
+      color: #0D1B1A;
+      font-family: var(--font-body);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: background 500ms ease-in-out, color 500ms ease-in-out;
+    }
+    .hero-btn-aero:hover .hero-btn-text {
+      background: #0a1f1d;
+      color: #d2f5a8;
+    }
+    .hero-btn-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 100px;
+      background: #d2f5a8;
+      color: #0D1B1A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+      transition: background 500ms ease-in-out, color 500ms ease-in-out;
+    }
+    .hero-btn-aero:hover .hero-btn-icon {
+      background: #0a1f1d;
+      color: #d2f5a8;
+    }
+    .hero-btn-icon svg {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      transition: transform 500ms ease-in-out;
+    }
+    .hero-btn-icon .arrow-out { transform: translate(0px, 0px); }
+    .hero-btn-icon .arrow-in  { transform: translate(-30px, 30px); }
+    .hero-btn-aero:hover .hero-btn-icon .arrow-out { transform: translate(30px, -30px); }
+    .hero-btn-aero:hover .hero-btn-icon .arrow-in  { transform: translate(0px, 0px); }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      right: var(--space-md);
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(240,253,250,.4);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(240,253,250,.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .4; transform: scaleY(1); }
+      50% { opacity: .85; transform: scaleY(1.08); }
+    }
+
+    /* ─── ÜBER UNS ───────────────────────────────────────────── */
+    .section-about { background: var(--c-bg-section); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: var(--space-xl);
+      align-items: start;
+      margin-bottom: var(--space-xl);
+    }
+    .about-timeline {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .timeline-rule {
+      width: 2px;
+      height: 52px;
+      background: linear-gradient(to bottom, var(--c-primary), transparent);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .timeline-year {
+      font-family: var(--font-heading);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+    }
+    .about-lead {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: var(--space-sm);
+      line-height: 1.65;
+    }
+    .about-text {
+      color: var(--c-text-muted);
+      line-height: 1.8;
+    }
+    .about-quote {
+      margin-top: var(--space-md);
+      padding-left: var(--space-md);
+      border-left: 3px solid var(--c-primary);
+      font-family: var(--font-heading);
+      font-size: .95rem;
+      font-style: italic;
+      color: var(--c-text-muted);
+      line-height: 1.65;
+    }
+    .about-quote-cite {
+      display: block;
+      margin-top: .5rem;
+      font-style: normal;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      color: var(--c-primary);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+    .value-card {
+      padding: var(--space-md);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-lg);
+      background: var(--c-bg);
+      transition: border-color var(--dur-fast), box-shadow var(--dur-fast), transform var(--dur-fast);
+      cursor: default;
+    }
+    .value-card:hover {
+      border-color: var(--c-primary-light);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+    .value-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(15,118,110,.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-sm);
+      color: var(--c-primary);
+    }
+    .value-title {
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      margin-bottom: .4rem;
+    }
+    .value-text {
+      font-size: .88rem;
+      color: var(--c-text-muted);
+      line-height: 1.65;
+    }
+
+    /* ─── WOHNUNGEN ──────────────────────────────────────────── */
+    .section-apartments { background: var(--c-bg); }
+    .apartments-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: var(--space-md);
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+    .section-sub {
+      color: var(--c-text-muted);
+      font-size: 1rem;
+      margin-top: .25rem;
+      margin-bottom: 0;
+    }
+    .apt-filter-bar {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+    .filter-btn {
+      font-family: var(--font-body);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1.5px solid var(--c-border);
+      background: var(--c-bg-section);
+      color: var(--c-text-muted);
+      cursor: pointer;
+      transition: all var(--dur-fast);
+    }
+    .filter-btn:hover { border-color: var(--c-primary); color: var(--c-primary); }
+    .filter-btn.is-active {
+      background: var(--c-primary);
+      border-color: var(--c-primary);
+      color: #fff;
+    }
+    .apartments-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .apt-card {
+      background: var(--c-bg-section);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform var(--dur-mid), box-shadow var(--dur-mid), border-color var(--dur-fast);
+    }
+    .apt-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--c-primary-light);
+    }
+    .apt-card-img {
+      height: 190px;
+      position: relative;
+      overflow: hidden;
+    }
+    .apt-img-bg {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .apt-img-bg svg { opacity: .18; }
+    .apt-badge {
+      position: absolute;
+      top: 12px; right: 12px;
+      font-family: var(--font-body);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      color: #fff;
+    }
+    .apt-badge-free { background: var(--c-success); }
+    .apt-badge-soon { background: var(--c-gold-light); }
+    .apt-card-body { padding: var(--space-sm) var(--space-md) var(--space-md); }
+    .apt-type {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin-bottom: 4px;
+    }
+    .apt-address {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+      letter-spacing: .03em;
+    }
+    .apt-specs {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-sm);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--c-border);
+    }
+    .spec-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--c-text-muted);
+    }
+    .spec-item svg { color: var(--c-primary); flex-shrink: 0; }
+    .apt-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .apt-price { display: flex; align-items: baseline; gap: 4px; }
+    .price-value {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--c-primary);
+    }
+    .price-label { font-size: .72rem; color: var(--c-text-muted); }
+    .apartments-empty {
+      text-align: center;
+      padding: var(--space-xl) var(--space-md);
+      border-radius: var(--radius-lg);
+      border: 1px dashed var(--c-border);
+      background: var(--c-bg-section);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .apartments-empty-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: rgba(15,118,110,.08);
+      color: var(--c-primary);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto var(--space-sm);
+    }
+    .apartments-empty-title {
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--c-text);
+      margin-bottom: .75rem;
+    }
+    .apartments-empty-text {
+      color: var(--c-text-muted);
+      font-size: .95rem;
+      line-height: 1.7;
+      margin-bottom: var(--space-md);
+    }
+
+    /* ─── MITGLIEDSCHAFT ─────────────────────────────────────── */
+    .section-membership {
+      background: var(--c-primary);
+      position: relative;
+      overflow: hidden;
+    }
+    .section-membership::before {
+      content: '';
+      position: absolute;
+      top: -30%; right: -10%;
+      width: 70%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(20,184,166,.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .section-membership .section-label { color: rgba(240,253,250,.45); }
+    .section-membership .section-heading { color: #F0FDFA; }
+    .membership-grid {
+      display: grid;
+      grid-template-columns: 1fr 460px;
+      gap: var(--space-xl);
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+    .membership-intro .about-lead {
+      color: rgba(240,253,250,.85);
+      font-size: 1.05rem;
+      margin-bottom: var(--space-lg);
+    }
+    .membership-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .membership-step {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+    .step-num {
+      font-family: var(--font-heading);
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: rgba(240,253,250,.18);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 64px;
+    }
+    .step-content strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      color: #F0FDFA;
+      margin-bottom: 3px;
+    }
+    .step-content p { font-size: .9rem; color: rgba(240,253,250,.6); }
+    .benefits-card {
+      background: rgba(240,253,250,.07);
+      border: 1px solid rgba(240,253,250,.15);
+      border-radius: var(--radius-xl);
+      padding: var(--space-lg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .benefits-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #F0FDFA;
+      letter-spacing: .06em;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid rgba(240,253,250,.15);
+    }
+    .benefits-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      margin-bottom: var(--space-lg);
+    }
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: .9rem;
+      color: rgba(240,253,250,.8);
+      line-height: 1.5;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(240,253,250,.07);
+      transition: color var(--dur-fast);
+    }
+    .benefit-item:last-child { border-bottom: none; }
+    .benefit-item:hover { color: #F0FDFA; }
+    .benefit-check {
+      color: var(--c-primary-light);
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .benefit-callout {
+      background: rgba(240,253,250,.1);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      text-align: center;
+      border: 1px solid rgba(240,253,250,.15);
+    }
+    .callout-from {
+      display: block;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(240,253,250,.5);
+      margin-bottom: 2px;
+    }
+    .callout-amount {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #F0FDFA;
+      letter-spacing: .04em;
+      line-height: 1.1;
+    }
+    .callout-desc {
+      display: block;
+      font-size: .78rem;
+      color: rgba(240,253,250,.55);
+      margin-top: 4px;
+    }
+
+    .membership-intro-para {
+      max-width: 760px;
+      color: rgba(240,253,250,.75);
+      line-height: 1.8;
+      font-size: 1rem;
+      margin-bottom: var(--space-xl);
+    }
+    .membership-note {
+      font-size: .82rem;
+      color: rgba(240,253,250,.45);
+      line-height: 1.6;
+      margin-top: calc(-1 * var(--space-sm));
+      margin-bottom: var(--space-lg);
+      padding-left: 80px;
+    }
+    .benefit-label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      color: #F0FDFA;
+      margin-bottom: 2px;
+    }
+    .benefit-desc {
+      display: block;
+      font-size: .8rem;
+      color: rgba(240,253,250,.55);
+      line-height: 1.5;
+    }
+    .benefits-faq {
+      background: rgba(240,253,250,.06);
+      border: 1px solid rgba(240,253,250,.12);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      text-align: center;
+    }
+    .benefits-faq-title {
+      font-family: var(--font-heading);
+      font-size: .95rem;
+      font-weight: 700;
+      color: #F0FDFA;
+      margin-bottom: .4rem;
+    }
+    .benefits-faq-text {
+      font-size: .82rem;
+      color: rgba(240,253,250,.6);
+      line-height: 1.55;
+      margin-bottom: var(--space-sm);
+    }
+
+    /* ─── FAQ ───────────────────────────────────────────────── */
+    .section-faq { background: var(--c-bg); }
+    .faq-list { max-width: 760px; margin-top: var(--space-lg); }
+    .faq-item { border-bottom: 1px solid var(--c-border); }
+    .faq-item:first-child { border-top: 1px solid var(--c-border); }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      cursor: pointer;
+      font-family: var(--font-heading);
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--c-text);
+      list-style: none;
+      user-select: none;
+      transition: color var(--dur-fast);
+    }
+    .faq-q:hover { color: var(--c-primary); }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-q::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230F766E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: contain;
+      transition: transform var(--dur-mid);
+    }
+    .faq-item[open] .faq-q::after { transform: rotate(180deg); }
+    .faq-a { overflow: hidden; }
+    .faq-a p {
+      font-size: .9rem;
+      color: var(--c-text-muted);
+      line-height: 1.75;
+      max-width: 640px;
+      padding-bottom: var(--space-md);
+    }
+
+    /* ─── BLOG / RATGEBER ───────────────────────────────────── */
+    .section-blog { background: var(--c-bg-section); }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .blog-card {
+      background: var(--c-bg);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      text-decoration: none;
+      transition: box-shadow var(--dur-mid) var(--ease-out), transform var(--dur-mid) var(--ease-out);
+    }
+    .blog-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .blog-card-tag {
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--c-primary);
+    }
+    .blog-card-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--c-text); line-height: 1.35;
+    }
+    .blog-card-excerpt {
+      font-size: .88rem; color: var(--c-text-muted);
+      line-height: 1.7; flex: 1;
+    }
+    .blog-card-link {
+      font-size: .8rem; font-weight: 700; letter-spacing: .08em;
+      color: var(--c-primary); display: inline-flex; align-items: center;
+      gap: .4rem; margin-top: var(--space-xs);
+      transition: gap var(--dur-fast);
+    }
+    .blog-card:hover .blog-card-link { gap: .75rem; }
+
+    /* ─── KONTAKT ────────────────────────────────────────────── */
+    .section-contact { background: var(--c-bg-section); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .contact-cards { margin-bottom: var(--space-md); }
+    .contact-card {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .contact-card:first-child { padding-top: 0; }
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--c-bg);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--c-primary);
+      flex-shrink: 0;
+    }
+    .contact-info-text strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      margin-bottom: 3px;
+    }
+    .contact-info-text p,
+    .contact-info-text a {
+      font-size: .9rem;
+      color: var(--c-text-muted);
+      line-height: 1.6;
+    }
+    .contact-info-text a:hover { color: var(--c-primary); }
+    .map-embed {
+      margin-top: var(--space-md);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--c-border);
+    }
+    .map-embed iframe { display: block; }
+
+    /* Form */
+    .contact-form-wrap {
+      background: var(--c-bg);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-lg);
+    }
+    .form-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      margin-bottom: var(--space-lg);
+      color: var(--c-text);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+    }
+    .form-group { margin-bottom: var(--space-sm); }
+    .form-label {
+      display: block;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--c-text);
+      margin-bottom: 6px;
+    }
+    .form-input {
+      width: 100%;
+      border: 1.5px solid var(--c-border);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      font-family: var(--font-body);
+      font-size: .95rem;
+      color: var(--c-text);
+      background: var(--c-bg-section);
+      transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+      outline: none;
+      appearance: none;
+    }
+    .form-input:focus {
+      border-color: var(--c-primary);
+      box-shadow: 0 0 0 3px rgba(15,118,110,.12);
+    }
+    .form-input.is-invalid {
+      border-color: var(--c-error);
+      box-shadow: 0 0 0 3px rgba(220,38,38,.08);
+    }
+    .form-input::placeholder { color: var(--c-text-light); }
+    textarea.form-input { resize: vertical; min-height: 110px; line-height: 1.6; }
+    select.form-input { cursor: pointer; }
+    .form-error {
+      display: block;
+      font-size: .75rem;
+      color: var(--c-error);
+      margin-top: 4px;
+      min-height: 18px;
+      line-height: 1.3;
+    }
+    .form-group-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .form-check {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--c-border);
+      border-radius: 4px;
+      cursor: pointer;
+      accent-color: var(--c-primary);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .form-check-label {
+      font-size: .85rem;
+      color: var(--c-text-muted);
+      line-height: 1.5;
+      flex: 1;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+    .form-link { color: var(--c-primary); text-decoration: underline; }
+    .form-success {
+      display: none;
+      background: #DCFCE7;
+      border: 1px solid #86EFAC;
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      text-align: center;
+      color: #14532D;
+      font-weight: 600;
+      margin-top: var(--space-sm);
+      font-size: .95rem;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    .site-footer {
+      background: var(--c-text);
+      color: rgba(240,253,250,.7);
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--space-xl);
+      align-items: start;
+      padding: var(--space-xl) var(--space-md) var(--space-lg);
+    }
+    .footer-logo { margin-bottom: var(--space-sm); }
+    .footer-logo-img {
+      height: 72px;
+      width: auto;
+    }
+    .footer-tagline {
+      font-size: .85rem;
+      color: rgba(240,253,250,.45);
+      font-style: italic;
+      letter-spacing: .05em;
+    }
+    .footer-nav { display: flex; gap: var(--space-xl); }
+    .footer-col { display: flex; flex-direction: column; gap: .5rem; }
+    .footer-col h4 {
+      font-family: var(--font-heading);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(240,253,250,.55);
+      margin-bottom: .25rem;
+    }
+    .footer-col a {
+      font-size: .85rem;
+      color: rgba(240,253,250,.55);
+      transition: color var(--dur-fast);
+    }
+    .footer-col a:hover { color: var(--c-primary-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(240,253,250,.08);
+      padding: var(--space-md) var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      font-size: .8rem;
+      color: rgba(240,253,250,.35);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1200px) {
+      .hero-body { max-width: 100%; }
+      .membership-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: var(--space-lg); }
+    }
+
+    @media (max-width: 1024px) {
+      :root { --space-xl: 5rem; }
+      .apartments-grid { grid-template-columns: repeat(2, 1fr); }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+      .footer-nav { flex-direction: column; gap: var(--space-md); }
+    }
+
+    @media (max-width: 640px) {
+      :root { --space-xl: 4rem; --space-lg: 2.5rem; }
+      .apartments-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; gap: var(--space-sm); }
+      .hero-stat + .hero-stat { padding-left: 0; border-left: none; }
+      .hero-scroll-hint { display: none; }
+      .hero-inner { padding-bottom: var(--space-lg); }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .section-label { font-size: 10px; }
+      .contact-form-wrap { padding: var(--space-md); }
+      .benefits-card { padding: var(--space-md); }
+    }
+    /* ─── WARTELISTE INLINE ─────────────────────────────────────── */
+    .wl-inline-card {
+      background: var(--c-bg-section);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-md);
+      max-width: 700px;
+      margin: var(--space-md) auto 0;
+    }
+    .wl-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--c-text);
+      margin-bottom: .4rem;
+    }
+    .wl-lead {
+      color: var(--c-text-muted);
+      font-size: .9rem;
+      margin-bottom: var(--space-md);
+    }
+
+    /* ─── CHAT WIDGET ────────────────────────────────────────── */
+    .chat-btn {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--c-primary); color: #fff; border: none; cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform var(--dur-mid) var(--ease-out), background var(--dur-fast);
+    }
+    .chat-btn:hover { transform: scale(1.08); background: var(--c-primary-dark); }
+    .chat-window {
+      position: fixed; bottom: 5.5rem; right: 2rem; z-index: 500;
+      width: 360px; max-height: 500px;
+      border-radius: var(--radius-xl);
+      background: var(--c-bg-section); box-shadow: var(--shadow-lg);
+      display: flex; flex-direction: column; overflow: hidden;
+      opacity: 0; transform: translateY(16px) scale(.97); pointer-events: none;
+      transition: opacity var(--dur-mid) var(--ease-out), transform var(--dur-mid) var(--ease-out);
+    }
+    .chat-window.is-open { opacity: 1; transform: none; pointer-events: all; }
+    .chat-header {
+      background: var(--c-primary); color: #fff;
+      padding: .9rem var(--space-sm);
+      display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
+    }
+    .chat-header-title { font-family: var(--font-heading); font-size: .88rem; font-weight: 700; letter-spacing: .06em; }
+    .chat-header-sub { font-size: .7rem; opacity: .6; margin-top: 2px; }
+    .chat-close { background: none; border: none; color: #fff; cursor: pointer; opacity: .65; font-size: 1.1rem; line-height: 1; padding: 4px; transition: opacity var(--dur-fast); }
+    .chat-close:hover { opacity: 1; }
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: var(--space-sm);
+      display: flex; flex-direction: column; gap: .65rem;
+      scroll-behavior: smooth;
+    }
+    .chat-msg {
+      max-width: 84%; border-radius: var(--radius-md);
+      padding: .55rem .85rem; font-size: .85rem; line-height: 1.55;
+      animation: chatMsgIn .25s var(--ease-out);
+    }
+    @keyframes chatMsgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .chat-msg-bot { background: var(--c-bg); color: var(--c-text); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-msg-user { background: var(--c-primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .chat-typing { align-self: flex-start; display: flex; gap: 5px; align-items: center; padding: .55rem .85rem; background: var(--c-bg); border-radius: var(--radius-md); border-bottom-left-radius: 4px; }
+    .chat-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--c-text-light); animation: chatDot 1.1s infinite ease-in-out; }
+    .chat-typing span:nth-child(2) { animation-delay: .18s; }
+    .chat-typing span:nth-child(3) { animation-delay: .36s; }
+    @keyframes chatDot { 0%,60%,100% { transform: translateY(0); opacity: .4; } 30% { transform: translateY(-5px); opacity: 1; } }
+    .chat-input-row {
+      display: flex; gap: .5rem; padding: .7rem var(--space-sm);
+      border-top: 1px solid var(--c-border); flex-shrink: 0;
+    }
+    .chat-input {
+      flex: 1; border: 1px solid var(--c-border); border-radius: var(--radius-sm);
+      padding: .5rem .75rem; font-family: var(--font-body); font-size: .85rem; color: var(--c-text);
+      outline: none; transition: border-color var(--dur-fast);
+    }
+    .chat-input:focus { border-color: var(--c-primary); }
+    .chat-send {
+      background: var(--c-primary); color: #fff; border: none;
+      border-radius: var(--radius-sm); padding: .5rem .9rem;
+      cursor: pointer; font-family: var(--font-body); font-size: .8rem; font-weight: 700;
+      transition: background var(--dur-fast);
+    }
+    .chat-send:hover { background: var(--c-primary-dark); }
+    .chat-send:disabled { opacity: .45; cursor: default; }
+    @media (max-width: 480px) {
+      .chat-window { width: calc(100vw - 2rem); right: 1rem; }
+      .chat-btn { bottom: 1.5rem; right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════ HEADER ══════════════ -->
+  <header id="site-header" class="site-header">
+    <div class="nav-inner container">
+      <a href="#" class="nav-logo" aria-label="Zur Startseite">
+        <img src="waldberg-logo.png" class="nav-logo-img" alt="Waldberg Wohngenossenschaft eG">
+      </a>
+      <nav class="nav-links" role="navigation" aria-label="Hauptnavigation">
+        <a href="#ueber-uns"     class="nav-link">Über uns</a>
+        <div class="nav-dropdown">
+          <a href="#wohnungen" class="nav-link">Wohnungen</a>
+          <div class="nav-dropdown-menu">
+            <a href="wohnblock.html"  class="nav-dropdown-item">Der Wohnblock</a>
+            <a href="wohnungen.html"  class="nav-dropdown-item">Freie Wohnungen</a>
+          </div>
+        </div>
+        <a href="#mitgliedschaft" class="nav-link">Mitgliedschaft</a>
+        <a href="aktuelles.html"  class="nav-link">Aktuelles</a>
+        <a href="ratgeber.html"  class="nav-link">Ratgeber</a>
+        <a href="#kontakt"       class="nav-link nav-link-cta">Kontakt</a>
+      </nav>
+      <button class="nav-hamburger" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ══════════════ MOBILE OVERLAY ══════════════ -->
+  <div id="nav-overlay" class="nav-overlay" aria-hidden="true" role="dialog" aria-label="Navigation">
+    <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Menü schließen">✕</button>
+    <a href="#ueber-uns"      class="nav-link">Über uns</a>
+    <a href="wohnblock.html"  class="nav-link">Der Wohnblock</a>
+    <a href="wohnungen.html"  class="nav-link">Freie Wohnungen</a>
+    <a href="#mitgliedschaft" class="nav-link">Mitgliedschaft</a>
+    <a href="aktuelles.html"  class="nav-link">Aktuelles</a>
+    <a href="ratgeber.html"   class="nav-link">Ratgeber</a>
+    <a href="#kontakt"        class="nav-link nav-link-cta">Kontakt</a>
+  </div>
+
+  <main>
+
+    <!-- ══════════════ HERO ══════════════ -->
+    <section id="hero" class="section-hero" style="scroll-margin-top:0">
+        <div class="hero-bg-img" id="hero-bg" aria-hidden="true"></div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+<div class="hero-inner">
+          <div class="hero-content">
+            <p class="hero-eyebrow reveal">Wohngenossenschaft Waldberg Greiz</p>
+            <h1 class="hero-heading reveal" style="--delay:80ms">
+              Zuhause.<br>
+              Gemeinsam.<br>
+              <span class="hero-heading-accent">Waldberg.</span>
+            </h1>
+            <p class="hero-body reveal" style="--delay:160ms">
+              Seit 1999 schaffen wir bezahlbaren, sicheren Wohnraum in Greiz.
+              Als Genossenschaft gehören wir unseren Mitgliedern – nicht anonymen Investoren.
+            </p>
+            <div class="hero-cta-group reveal" style="--delay:240ms">
+              <a href="#wohnungen" class="hero-btn-aero">
+                <span class="hero-btn-text">Wohnungen ansehen</span>
+              </a>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <!-- ══════════════ ÜBER UNS ══════════════ -->
+    <section id="ueber-uns" class="section-about section-pad">
+      <div class="container">
+        <div class="section-label reveal">01 — Über uns</div>
+
+        <div class="about-grid">
+          <div class="about-heading-col">
+            <h2 class="section-heading reveal" style="--delay:50ms">
+              Sicher wohnen,<br>gemeinsam leben.
+            </h2>
+            <div class="about-timeline reveal" style="--delay:120ms">
+              <div class="timeline-rule"></div>
+              <span class="timeline-year">Gegründet 1999</span>
+            </div>
+          </div>
+          <div class="about-body-col">
+            <p class="about-lead reveal" style="--delay:80ms">
+              Die Wohngenossenschaft Waldberg e.G. ist mehr als ein Vermieter – wir sind ein
+              starker Partner für sicheres, bezahlbares Wohnen in Greiz. Nicht
+              Gewinnmaximierung, sondern das Wohl unserer Mitglieder steht bei uns im Mittelpunkt.
+            </p>
+            <p class="about-text reveal" style="--delay:140ms">
+              Wer bei uns wohnt, ist nicht einfach Mieter, sondern Teil einer starken
+              Gemeinschaft. Das genossenschaftliche Prinzip sichert unseren Mitgliedern ein
+              lebenslanges Wohnrecht – und die Gewissheit, auch künftig in guten Händen zu sein.
+              Keine Eigenbedarfskündigung, keine anonymen Investoren.
+            </p>
+            <p class="about-text reveal" style="--delay:180ms">
+              Als fest verwurzeltes Unternehmen in Greiz arbeiten wir bevorzugt mit lokalen
+              Handwerksbetrieben zusammen und investieren kontinuierlich in die Modernisierung
+              unseres Bestands. Unser Team vor Ort kennt jeden Eingang persönlich und hat stets
+              ein offenes Ohr – kurze Wege, verlässliche Ansprechpartner.
+            </p>
+            <blockquote class="about-quote reveal" style="--delay:220ms">
+              „Es gibt keinen schöneren Ort auf der Welt als den, an dem man verweilen möchte."
+              <cite class="about-quote-cite">– Kurt Tucholsky</cite>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="values-grid">
+          <div class="value-card reveal" style="--delay:0ms">
+            <div class="value-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <h3 class="value-title">Bezahlbar</h3>
+            <p class="value-text">Mieten unter Marktniveau – weil wir keine Gewinne ausschütten, sondern in Ihre Wohnung reinvestieren.</p>
+          </div>
+          <div class="value-card reveal" style="--delay:80ms">
+            <div class="value-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 class="value-title">Gemeinschaft</h3>
+            <p class="value-text">Mitglieder gestalten mit. Mitgliederversammlung, Nachbarschaftspflege und ein Team, das Sie persönlich kennt.</p>
+          </div>
+          <div class="value-card reveal" style="--delay:160ms">
+            <div class="value-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+              </svg>
+            </div>
+            <h3 class="value-title">Nachhaltig</h3>
+            <p class="value-text">Verantwortungsvolles Wirtschaften mit Blick auf kommende Generationen – für Greiz und für Sie.</p>
+          </div>
+          <div class="value-card reveal" style="--delay:240ms">
+            <div class="value-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 class="value-title">Sicher</h3>
+            <p class="value-text">Lebenslanges Wohnrecht ohne Eigenbedarfsrisiko. Ihr Zuhause bleibt Ihr Zuhause.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ WOHNUNGEN ══════════════ -->
+    <section id="wohnungen" class="section-apartments section-pad">
+      <div class="container">
+        <div class="section-label reveal">02 — Wohnungen</div>
+
+        <h2 class="section-heading reveal" style="--delay:50ms;margin-bottom:.5rem">Unsere Wohnungen</h2>
+        <p class="section-sub reveal" style="--delay:80ms">Aktuell sind keine Wohnungen frei – tragen Sie sich auf unsere Warteliste ein.</p>
+
+        <div id="apt-grid" class="apartments-grid" style="display:none"></div>
+
+        <div id="apt-empty" class="apartments-empty reveal" style="--delay:120ms">
+          <div class="apartments-empty-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <h3 class="apartments-empty-title">Aktuell keine freien Wohnungen</h3>
+          <p class="apartments-empty-text">
+            Da wir eine kleine Genossenschaft sind, werden Wohnungen selten frei –
+            und wenn, dann meist sehr schnell vergeben.
+          </p>
+          <button type="button" id="show-wl-btn" class="btn btn-primary" style="margin-top:var(--space-md)">Auf die Warteliste eintragen</button>
+        </div>
+
+        <div id="wl-inline" class="wl-inline-card" style="display:none">
+          <h3 class="wl-title">Auf die Warteliste eintragen</h3>
+          <p class="wl-lead">Tragen Sie sich ein – wir melden uns, sobald eine passende Wohnung frei wird.</p>
+          <form id="waitlist-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="wl-name" class="form-label">Name *</label>
+                <input type="text" id="wl-name" name="wl-name" class="form-input" placeholder="Vor- und Nachname" required autocomplete="name">
+                <span class="form-error" id="wl-err-name" role="alert"></span>
+              </div>
+              <div class="form-group">
+                <label for="wl-email" class="form-label">E-Mail *</label>
+                <input type="email" id="wl-email" name="wl-email" class="form-input" placeholder="ihre@email.de" required autocomplete="email">
+                <span class="form-error" id="wl-err-email" role="alert"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="wl-phone" class="form-label">Telefon</label>
+                <input type="tel" id="wl-phone" name="wl-phone" class="form-input" placeholder="Optional" autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label for="wl-rooms" class="form-label">Zimmerwunsch *</label>
+                <select id="wl-rooms" name="wl-rooms" class="form-input" required>
+                  <option value="" disabled selected>Bitte wählen…</option>
+                  <option value="egal">Egal</option>
+                  <option value="2zi">2-Zimmer</option>
+                  <option value="3zi">3-Zimmer</option>
+                  <option value="4zi">4+ Zimmer</option>
+                </select>
+                <span class="form-error" id="wl-err-rooms" role="alert"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="wl-rent" class="form-label">Max. Kaltmiete</label>
+                <select id="wl-rent" name="wl-rent" class="form-input">
+                  <option value="" disabled selected>Bitte wählen…</option>
+                  <option value="350">Bis 350 €</option>
+                  <option value="450">350 – 450 €</option>
+                  <option value="550">450 – 550 €</option>
+                  <option value="550+">Über 550 €</option>
+                </select>
+              </div>
+              <div class="form-group" style="justify-content:flex-end">
+                <label class="form-label">&nbsp;</label>
+                <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;color:var(--c-text);font-size:.85rem">
+                  <input type="checkbox" id="wl-ground" name="wl-ground" class="form-check" style="margin:0">
+                  Erdgeschoss bevorzugt
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="wl-notes" class="form-label">Anmerkungen / Wünsche</label>
+              <textarea id="wl-notes" name="wl-notes" class="form-input" placeholder="Besondere Wünsche, Haustiere, barrierefreier Zugang …" rows="3"></textarea>
+            </div>
+            <div class="form-group form-group-check">
+              <input type="checkbox" id="wl-privacy" name="wl-privacy" class="form-check" required>
+              <label for="wl-privacy" class="form-check-label">
+                Ich habe die <a href="#" class="form-link">Datenschutzerklärung</a> gelesen und stimme zu. *
+              </label>
+              <span class="form-error" id="wl-err-privacy" role="alert" style="width:100%;margin-left:28px"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="wl-submit" style="margin-top:var(--space-xs)">
+              Auf die Warteliste eintragen
+            </button>
+            <div class="form-success" id="wl-success" aria-live="polite">
+              Vielen Dank! Wir haben Sie auf unsere Warteliste eingetragen und melden uns, sobald eine passende Wohnung frei wird.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ MITGLIEDSCHAFT ══════════════ -->
+    <section id="mitgliedschaft" class="section-membership section-pad">
+      <div class="container">
+        <div class="section-label reveal">03 — Mitgliedschaft</div>
+
+        <p class="membership-intro-para reveal" style="--delay:40ms">
+          Eine Wohnungsgenossenschaft unterscheidet sich grundlegend von privaten Vermietern
+          oder anonymen Immobiliengesellschaften. Bei uns steht nicht der Profit im Vordergrund,
+          sondern die Förderung unserer Mitglieder. Wenn Sie bei uns einziehen, werden Sie durch
+          den Erwerb von Genossenschaftsanteilen zum Miteigentümer – Sie investieren nicht nur
+          in Wohnraum, sondern in ein gemeinschaftliches Gut in Greiz.
+        </p>
+
+        <div class="membership-grid">
+          <div class="membership-intro">
+            <h2 class="section-heading reveal" style="--delay:50ms">
+              So werden Sie<br>Mitglied.
+            </h2>
+            <p class="about-lead reveal" style="--delay:100ms">
+              Die Mitgliedschaft ist an den Bezug einer Wohnung gekoppelt.
+              Sprechen Sie uns an – wir begleiten Sie Schritt für Schritt.
+            </p>
+
+            <ol class="membership-steps">
+              <li class="membership-step reveal" style="--delay:80ms">
+                <span class="step-num">01</span>
+                <div class="step-content">
+                  <strong>Beratung &amp; Wohnungsauswahl</strong>
+                  <p>Gemeinsam finden wir die passende Wohnung für Ihre Lebenssituation. Wir nehmen uns Zeit für Sie – persönlich, transparent, unverbindlich.</p>
+                </div>
+              </li>
+              <li class="membership-step reveal" style="--delay:150ms">
+                <span class="step-num">02</span>
+                <div class="step-content">
+                  <strong>Anteile zeichnen</strong>
+                  <p>Bei Einzug erwerben Sie Geschäftsanteile – statt einer klassischen Kaution. Die genaue Höhe richtet sich nach unserer Satzung.</p>
+                </div>
+              </li>
+              <li class="membership-step reveal" style="--delay:220ms">
+                <span class="step-num">03</span>
+                <div class="step-content">
+                  <strong>Einziehen &amp; sicher wohnen</strong>
+                  <p>Mit dem Dauernutzungsvertrag sind Sie vollwertiges Mitglied – mit lebenslangem Wohnrecht und Stimmrecht in der Mitgliederversammlung.</p>
+                </div>
+              </li>
+            </ol>
+
+            <p class="membership-note reveal" style="--delay:260ms">
+              Möchten Sie irgendwann ausziehen, können Sie Ihre Mitgliedschaft satzungsgemäß kündigen.
+              Ihre eingezahlten Anteile werden nach den gesetzlichen Fristen vollständig zurückgezahlt.
+            </p>
+
+            <a href="#kontakt" class="btn btn-ghost-light reveal" style="--delay:310ms">Jetzt beraten lassen</a>
+          </div>
+
+          <div class="reveal" style="--delay:180ms">
+            <div class="benefits-card">
+              <h3 class="benefits-title">Ihre Vorteile als Mitglied</h3>
+              <ul class="benefits-list" aria-label="Vorteile der Mitgliedschaft">
+                <li class="benefit-item">
+                  <span class="benefit-check" aria-hidden="true">✓</span>
+                  <div>
+                    <strong class="benefit-label">Schutz vor Eigenbedarf</strong>
+                    <span class="benefit-desc">Als Mitglied genießen Sie ein lebenslanges Wohnrecht. Eine Kündigung wegen Eigenbedarfs ist ausgeschlossen.</span>
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <span class="benefit-check" aria-hidden="true">✓</span>
+                  <div>
+                    <strong class="benefit-label">Keine Mietkaution</strong>
+                    <span class="benefit-desc">Statt einer klassischen Kaution zeichnen Sie Geschäftsanteile – das Geld arbeitet direkt für die Gemeinschaft.</span>
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <span class="benefit-check" aria-hidden="true">✓</span>
+                  <div>
+                    <strong class="benefit-label">Demokratische Mitbestimmung</strong>
+                    <span class="benefit-desc">Unabhängig von Ihrer Anteilszahl gilt: Eine Person, eine Stimme. Sie gestalten die Zukunft unserer Genossenschaft aktiv mit.</span>
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <span class="benefit-check" aria-hidden="true">✓</span>
+                  <div>
+                    <strong class="benefit-label">Faire und stabile Mieten</strong>
+                    <span class="benefit-desc">Da wir keine Gewinne an externe Investoren ausschütten, bleiben unsere Mieten dauerhaft bezahlbar.</span>
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <span class="benefit-check" aria-hidden="true">✓</span>
+                  <div>
+                    <strong class="benefit-label">Persönlicher Ansprechpartner</strong>
+                    <span class="benefit-desc">Unser Team in Greiz kennt jeden Eingang. Kurze Wege, verlässlicher Service – direkt vor Ort.</span>
+                  </div>
+                </li>
+              </ul>
+              <div class="benefits-faq">
+                <p class="benefits-faq-title">Haben Sie Fragen?</p>
+                <p class="benefits-faq-text">Wir erklären Ihnen alle Details persönlich – transparent, verständlich und unverbindlich.</p>
+                <a href="#kontakt" class="btn btn-ghost-light" style="font-size:.85rem;padding:.5rem 1.2rem">Jetzt Kontakt aufnehmen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ BLOG / RATGEBER ══════════════ -->
+    <!-- ══════════════ KONTAKT ══════════════ -->
+    <section id="kontakt" class="section-contact section-pad">
+      <div class="container">
+        <div class="section-label reveal">04 — Kontakt</div>
+        <h2 class="section-heading reveal" style="--delay:50ms">Sprechen Sie<br>mit uns.</h2>
+
+        <div class="contact-grid" style="margin-top:var(--space-lg)">
+
+          <!-- Kontaktinfos -->
+          <div>
+            <div class="contact-cards">
+              <div class="contact-card reveal" style="--delay:0ms">
+                <div class="contact-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div class="contact-info-text">
+                  <strong>Adresse</strong>
+                  <p>Kurt-Tucholsky-Straße 12<br>07973 Greiz, Thüringen</p>
+                </div>
+              </div>
+              <div class="contact-card reveal" style="--delay:70ms">
+                <div class="contact-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 5.59 5.59l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                </div>
+                <div class="contact-info-text">
+                  <strong>Telefon</strong>
+                  <a href="tel:+4936614300015">03661 430015</a>
+                </div>
+              </div>
+              <div class="contact-card reveal" style="--delay:140ms">
+                <div class="contact-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                  </svg>
+                </div>
+                <div class="contact-info-text">
+                  <strong>E-Mail</strong>
+                  <a href="mailto:wgwaldberg@gmx.de">wgwaldberg@gmx.de</a>
+                </div>
+              </div>
+              <div class="contact-card reveal" style="--delay:210ms">
+                <div class="contact-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <div class="contact-info-text">
+                  <strong>Sprechzeiten</strong>
+                  <p>Mo, Di, Do: 9–12 und 13–17 Uhr<br>Fr: 9–12 Uhr</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="map-embed reveal" style="--delay:280ms">
+              <iframe
+                src="https://maps.google.com/maps?q=Kurt-Tucholsky-Stra%C3%9Fe+12%2C+07973+Greiz%2C+Th%C3%BCringen&output=embed&z=16"
+                width="100%" height="260" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Standort Wohngenossenschaft Waldberg e.G."></iframe>
+            </div>
+          </div>
+
+          <!-- Kontaktformular -->
+          <div class="contact-form-wrap reveal" style="--delay:100ms">
+            <h3 class="form-title">Nachricht senden</h3>
+            <form id="contact-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="f-name" class="form-label">Name *</label>
+                  <input type="text" id="f-name" name="name" class="form-input" placeholder="Vor- und Nachname" required autocomplete="name">
+                  <span class="form-error" id="err-name" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-email" class="form-label">E-Mail *</label>
+                  <input type="email" id="f-email" name="email" class="form-input" placeholder="ihre@email.de" required autocomplete="email">
+                  <span class="form-error" id="err-email" role="alert"></span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="f-phone" class="form-label">Telefon</label>
+                  <input type="tel" id="f-phone" name="phone" class="form-input" placeholder="Optional" autocomplete="tel">
+                </div>
+                <div class="form-group">
+                  <label for="f-subject" class="form-label">Betreff *</label>
+                  <select id="f-subject" name="subject" class="form-input" required>
+                    <option value="" disabled selected>Bitte wählen…</option>
+                    <option value="wohnung">Wohnungsanfrage</option>
+                    <option value="mitglied">Mitgliedschaft</option>
+                    <option value="warteliste">Warteliste</option>
+                    <option value="sonstiges">Sonstiges</option>
+                  </select>
+                  <span class="form-error" id="err-subject" role="alert"></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="f-message" class="form-label">Nachricht *</label>
+                <textarea id="f-message" name="message" class="form-input" placeholder="Ihre Nachricht…" rows="4" required></textarea>
+                <span class="form-error" id="err-message" role="alert"></span>
+              </div>
+              <div class="form-group form-group-check">
+                <input type="checkbox" id="f-privacy" name="privacy" class="form-check" required>
+                <label for="f-privacy" class="form-check-label">
+                  Ich habe die <a href="#" class="form-link">Datenschutzerklärung</a> gelesen und stimme zu. *
+                </label>
+                <span class="form-error" id="err-privacy" role="alert" style="width:100%;margin-left:28px"></span>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full" id="submit-btn" style="margin-top:var(--space-xs)">
+                Nachricht senden
+              </button>
+              <div class="form-success" id="form-success" aria-live="polite">
+                Vielen Dank! Wir melden uns in Kürze bei Ihnen.
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ FAQ ══════════════ -->
+    <section id="faq" class="section-faq section-pad">
+      <div class="container">
+        <div class="section-label reveal">05 — Häufige Fragen</div>
+        <h2 class="section-heading reveal" style="--delay:50ms">Was Sie<br>wissen möchten.</h2>
+
+        <div class="faq-list">
+
+          <details class="faq-item reveal" style="--delay:80ms">
+            <summary class="faq-q">Welche Wohnungsgrößen gibt es?</summary>
+            <div class="faq-a">
+              <p>Wir bieten 2-, 3- und 4-Raum-Wohnungen an – ob für Singles, Paare oder Familien. Gemeinsam finden wir die passende Wohnung für Ihre Situation.</p>
+            </div>
+          </details>
+
+          <details class="faq-item reveal" style="--delay:120ms">
+            <summary class="faq-q">Gibt es Parkmöglichkeiten?</summary>
+            <div class="faq-a">
+              <p>Ja. Direkt gegenüber stehen kostenlose Parkplätze für alle Bewohnerinnen und Bewohner zur Verfügung.</p>
+            </div>
+          </details>
+
+          <details class="faq-item reveal" style="--delay:160ms">
+            <summary class="faq-q">Wie ist die Lage – gibt es Einkaufsmöglichkeiten in der Nähe?</summary>
+            <div class="faq-a">
+              <p>Die Versorgung ist sehr gut: REWE und Netto sind bequem zu Fuß erreichbar. Auch eine Bushaltestelle befindet sich in unmittelbarer Nähe.</p>
+            </div>
+          </details>
+
+          <details class="faq-item reveal" style="--delay:200ms">
+            <summary class="faq-q">Was passiert mit meinem Genossenschaftsanteil, wenn ich ausziehe?</summary>
+            <div class="faq-a">
+              <p>Der eingezahlte Anteil wird Ihnen nach dem Auszug vollständig zurückerstattet. Die genauen Details besprechen wir gern persönlich mit Ihnen.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div>
+        <div class="footer-logo">
+          <img src="waldberg-logo.png" class="footer-logo-img" alt="Waldberg Wohngenossenschaft eG">
+        </div>
+        <p class="footer-tagline">Gemeinsam wohnen. Gemeinsam gestalten.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer-Navigation">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="#ueber-uns">Über uns</a>
+          <a href="#wohnungen">Wohnungen</a>
+          <a href="#mitgliedschaft">Mitgliedschaft</a>
+          <a href="#kontakt">Kontakt</a>
+        </div>
+        <div class="footer-col">
+          <h4>Ratgeber</h4>
+          <a href="blog-genossenschaftswohnung.html">Was ist eine Genossenschaftswohnung?</a>
+          <a href="blog-wohnungsmarkt-greiz.html">Mietpreise in Greiz 2026</a>
+        </div>
+        <div class="footer-col">
+          <h4>Rechtliches</h4>
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">Satzung</a>
+          <a href="#">Jahresbericht</a>
+          <a href="mitglieder.html">Mitgliederbereich</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 Wohngenossenschaft Waldberg e.G. · Greiz, Thüringen</p>
+      <p>Eingetragen im Genossenschaftsregister</p>
+    </div>
+  </footer>
+
+  <!-- ─── WARTELISTEN-MODAL ──────────────────────────────────────── -->
+  <script src="apartments-data.js"></script>
+  <script>
+    // ─── WOHNUNGEN RENDER ─────────────────────────────────────────
+    (function () {
+      const grid  = document.getElementById('apt-grid');
+      const empty = document.getElementById('apt-empty');
+      if (!grid || !empty) return;
+      if (typeof APARTMENTS !== 'undefined' && APARTMENTS.length > 0) {
+        empty.style.display = 'none';
+        grid.style.display  = 'grid';
+        grid.innerHTML = APARTMENTS.map(a => `
+          <div class="apt-card">
+            <div class="apt-card-img">
+              <div class="apt-img-bg" style="background:var(--c-bg)">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="opacity:.12"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <span class="apt-badge apt-badge-free">Frei</span>
+            </div>
+            <div class="apt-card-body">
+              <div class="apt-type">${a.type}</div>
+              <div class="apt-address">Eingang ${a.entrance} · ${a.floor}</div>
+              <div class="apt-specs">
+                <span class="spec-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                  ${a.size} m²
+                </span>
+                <span class="spec-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                  ${a.floor}
+                </span>
+              </div>
+              <div class="apt-footer">
+                <div class="apt-price">
+                  <span class="price-value">${a.rent} €</span>
+                  <span class="price-label">Kaltmiete</span>
+                </div>
+                <span style="font-size:.78rem;color:var(--c-text-muted)">ab ${a.available}</span>
+              </div>
+            </div>
+          </div>`).join('');
+      }
+    })();
+
+    // ─── HEADER SCROLL ───────────────────────────────────────────
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // ─── MOBILE NAV ───────────────────────────────────────────────
+    const navToggle  = document.getElementById('nav-toggle');
+    const navOverlay = document.getElementById('nav-overlay');
+    const navClose   = document.getElementById('nav-overlay-close');
+    let navOpen = false;
+
+    function openNav() {
+      navOpen = true;
+      navToggle.setAttribute('aria-expanded', 'true');
+      navToggle.setAttribute('aria-label', 'Menü schließen');
+      navToggle.classList.add('is-open');
+      navOverlay.classList.add('is-open');
+      navOverlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('nav-open');
+    }
+    function closeNav() {
+      navOpen = false;
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Menü öffnen');
+      navToggle.classList.remove('is-open');
+      navOverlay.classList.remove('is-open');
+      navOverlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('nav-open');
+    }
+
+    navToggle.addEventListener('click', () => navOpen ? closeNav() : openNav());
+    navClose.addEventListener('click', closeNav);
+    navOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && navOpen) closeNav(); });
+
+
+    // ─── SCROLL REVEAL ────────────────────────────────────────────
+    // Hero content: reveal immediately on load
+    document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('is-visible'));
+
+    // All other sections: on scroll
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal:not(#hero .reveal)').forEach(el => revealObs.observe(el));
+
+    // ─── ACTIVE NAV LINK ─────────────────────────────────────────
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-links .nav-link[href^="#"]');
+
+    const sectionObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('is-active'));
+          const active = document.querySelector(`.nav-links .nav-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('is-active');
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sections.forEach(s => sectionObs.observe(s));
+
+    // ─── WARTELISTE ANZEIGEN ──────────────────────────────────────
+    const showWlBtn = document.getElementById('show-wl-btn');
+    if (showWlBtn) {
+      showWlBtn.addEventListener('click', () => {
+        const card = document.getElementById('wl-inline');
+        card.style.display = 'block';
+        showWlBtn.style.display = 'none';
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    // ─── WARTELISTEN-FORMULAR ─────────────────────────────────────
+    (function () {
+      const wlForm    = document.getElementById('waitlist-form');
+      const wlSubmit  = document.getElementById('wl-submit');
+      const wlSuccess = document.getElementById('wl-success');
+      if (!wlForm) return;
+
+      const wlValidators = {
+        'wl-name':    v => v.trim().length >= 2    ? '' : 'Bitte geben Sie Ihren Namen ein.',
+        'wl-email':   v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+        'wl-rooms':   v => v !== ''                ? '' : 'Bitte wählen Sie Ihren Zimmerwunsch.',
+        'wl-privacy': v => v                       ? '' : 'Bitte stimmen Sie der Datenschutzerklärung zu.',
+      };
+
+      function validateWlField(name) {
+        const el  = wlForm.elements[name];
+        const val = name === 'wl-privacy' ? el.checked : el.value;
+        const err = document.getElementById('wl-err-' + name.replace('wl-', ''));
+        const msg = wlValidators[name] ? wlValidators[name](val) : '';
+        if (err) err.textContent = msg;
+        el.classList.toggle('is-invalid', !!msg);
+        return !msg;
+      }
+
+      ['wl-name', 'wl-email', 'wl-rooms'].forEach(n => {
+        const el = wlForm.elements[n];
+        el.addEventListener('blur', () => validateWlField(n));
+        el.addEventListener('input', () => { if (el.classList.contains('is-invalid')) validateWlField(n); });
+      });
+      wlForm.elements['wl-privacy'].addEventListener('change', () => validateWlField('wl-privacy'));
+
+      wlForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const valid = ['wl-name', 'wl-email', 'wl-rooms', 'wl-privacy'].map(n => validateWlField(n)).every(Boolean);
+        if (!valid) return;
+        wlSubmit.disabled = true;
+        wlSubmit.textContent = 'Wird eingetragen…';
+        setTimeout(() => {
+          wlForm.querySelectorAll('.form-group').forEach(g => { g.style.display = 'none'; });
+          wlSubmit.style.display = 'none';
+          wlSuccess.style.display = 'block';
+        }, 900);
+      });
+    })();
+
+    // ─── CONTACT FORM VALIDATION ──────────────────────────────────
+    const form = document.getElementById('contact-form');
+
+    const validators = {
+      name:    v => v.trim().length >= 2    ? '' : 'Bitte geben Sie Ihren Namen ein.',
+      email:   v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+      subject: v => v !== ''               ? '' : 'Bitte wählen Sie einen Betreff.',
+      message: v => v.trim().length >= 10  ? '' : 'Bitte schreiben Sie mindestens 10 Zeichen.',
+      privacy: v => v                      ? '' : 'Bitte stimmen Sie der Datenschutzerklärung zu.',
+    };
+
+    function validateField(name) {
+      const el  = form.elements[name];
+      const val = name === 'privacy' ? el.checked : el.value;
+      const err = document.getElementById('err-' + name);
+      const msg = validators[name] ? validators[name](val) : '';
+      if (err) err.textContent = msg;
+      el.classList.toggle('is-invalid', !!msg);
+      return !msg;
+    }
+
+    ['name','email','subject','message'].forEach(name => {
+      const el = form.elements[name];
+      el.addEventListener('blur',  () => validateField(name));
+      el.addEventListener('input', () => { if (el.classList.contains('is-invalid')) validateField(name); });
+    });
+    form.elements['privacy'].addEventListener('change', () => validateField('privacy'));
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const valid = ['name','email','subject','message','privacy'].map(n => validateField(n)).every(Boolean);
+      if (!valid) return;
+
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet…';
+
+      setTimeout(() => {
+        form.querySelectorAll('.form-group').forEach(g => { g.style.display = 'none'; });
+        btn.style.display = 'none';
+        const success = document.getElementById('form-success');
+        success.style.display = 'block';
+      }, 900);
+    });
+  </script>
+
+  <!-- ══════════════ CHAT WIDGET ══════════════ -->
+  <button class="chat-btn" id="chat-btn" aria-label="Chat öffnen" aria-expanded="false">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+  </button>
+
+  <div class="chat-window" id="chat-window" role="dialog" aria-label="Waldberg Assistent" aria-hidden="true">
+    <div class="chat-header">
+      <div>
+        <div class="chat-header-title">Waldberg Assistent</div>
+        <div class="chat-header-sub">KI-gestützt · antwortet sofort</div>
+      </div>
+      <button class="chat-close" id="chat-close" aria-label="Chat schließen">✕</button>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chat-input" type="text" placeholder="Ihre Frage…" autocomplete="off" aria-label="Nachricht eingeben">
+      <button class="chat-send" id="chat-send">Senden</button>
+    </div>
+  </div>
+
+  <script>
+    // ─── CHAT WIDGET ──────────────────────────────────────────
+    const ANTHROPIC_API_KEY = 'YOUR_API_KEY_HERE';
+
+    const CHAT_SYSTEM = `Du bist der freundliche digitale Assistent der Wohngenossenschaft Waldberg e.G. in Greiz, Thüringen. Du hilfst Interessentinnen und Interessenten mit Fragen rund um Wohnen, Mitgliedschaft und die Genossenschaft.
+
+Fakten über die Waldberg-Genossenschaft:
+- Adresse: Kurt-Tucholsky-Straße 12, 07973 Greiz, Thüringen
+- Telefon: 03661 430015 | E-Mail: wgwaldberg@gmx.de
+- Sprechzeiten: Mo, Di, Do 9–12 und 13–17 Uhr | Fr 9–12 Uhr
+- Gegründet 1999, 119 Wohnungen in Greiz
+- Angebot: 2-, 3- und 4-Raum-Wohnungen
+- Kostenlose Parkplätze direkt gegenüber
+- REWE und Netto fußläufig, Bushaltestelle in unmittelbarer Nähe
+- Mitgliedschaft: einmaliger Genossenschaftsanteil (Höhe je nach Wohnungsgröße, individuell)
+- Anteil wird bei Auszug vollständig zurückerstattet – keine klassische Mietkaution
+- Kein Eigenbedarfsrisiko, lebenslanges Wohnrecht
+- Faire, stabile Mieten unter Marktniveau
+- Demokratische Mitbestimmung: eine Person, eine Stimme
+- Warteliste: Interessenten können sich unverbindlich eintragen
+
+Antworte immer auf Deutsch, höflich und im „Sie"-Stil. Halte Antworten kurz (2–4 Sätze). Bei Fragen zu aktuell freien Wohnungen oder genauen Konditionen: bitte auf direkten Kontakt (Telefon / E-Mail) oder die Warteliste verweisen.`;
+
+    const chatBtn    = document.getElementById('chat-btn');
+    const chatWindow = document.getElementById('chat-window');
+    const chatClose  = document.getElementById('chat-close');
+    const chatInput  = document.getElementById('chat-input');
+    const chatSend   = document.getElementById('chat-send');
+    const chatMsgs   = document.getElementById('chat-messages');
+
+    let history = [];
+    let isOpen  = false;
+
+    function toggleChat(open) {
+      isOpen = open;
+      chatWindow.classList.toggle('is-open', open);
+      chatWindow.setAttribute('aria-hidden', String(!open));
+      chatBtn.setAttribute('aria-expanded', String(open));
+    }
+
+    function addMsg(text, role) {
+      const div = document.createElement('div');
+      div.className = 'chat-msg ' + (role === 'user' ? 'chat-msg-user' : 'chat-msg-bot');
+      div.textContent = text;
+      chatMsgs.appendChild(div);
+      chatMsgs.scrollTop = chatMsgs.scrollHeight;
+      return div;
+    }
+
+    function showTyping() {
+      const el = document.createElement('div');
+      el.className = 'chat-typing';
+      el.innerHTML = '<span></span><span></span><span></span>';
+      chatMsgs.appendChild(el);
+      chatMsgs.scrollTop = chatMsgs.scrollHeight;
+      return el;
+    }
+
+    async function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text || chatSend.disabled) return;
+
+      chatInput.value = '';
+      chatSend.disabled = true;
+      addMsg(text, 'user');
+      history.push({ role: 'user', content: text });
+
+      const typing = showTyping();
+
+      try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true'
+          },
+          body: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 400,
+            system: CHAT_SYSTEM,
+            messages: history.slice(-10)
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          const errMsg = data?.error?.message ?? `HTTP ${res.status}`;
+          console.error('Anthropic API Fehler:', res.status, data);
+          typing.remove();
+          // Popup: API-Key noch nicht gesetzt
+          if (res.status === 401) {
+            addMsg('Der API-Schlüssel ist ungültig oder noch nicht gesetzt. Bitte tragen Sie Ihren Anthropic API-Schlüssel in die Datei ein (const ANTHROPIC_API_KEY = …).', 'bot');
+          } else {
+            addMsg(`API-Fehler (${res.status}): ${errMsg}`, 'bot');
+          }
+          chatSend.disabled = false;
+          chatInput.focus();
+          return;
+        }
+
+        const reply = data?.content?.[0]?.text ?? 'Keine Antwort erhalten. Bitte erneut versuchen.';
+        history.push({ role: 'assistant', content: reply });
+        typing.remove();
+        addMsg(reply, 'bot');
+      } catch (err) {
+        console.error('Chat Netzwerkfehler:', err);
+        typing.remove();
+        addMsg('Verbindungsfehler – bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.', 'bot');
+      }
+
+      chatSend.disabled = false;
+      chatInput.focus();
+    }
+
+    chatBtn.addEventListener('click', () => {
+      toggleChat(!isOpen);
+      if (isOpen && chatMsgs.children.length === 0) {
+        addMsg('Guten Tag! Ich bin der Assistent der Wohngenossenschaft Waldberg. Wie kann ich Ihnen helfen?', 'bot');
+      }
+    });
+    chatClose.addEventListener('click', () => toggleChat(false));
+    chatSend.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Welche Wohnungsgrößen gibt es?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wir bieten 2-, 3- und 4-Raum-Wohnungen an – ob für Singles, Paare oder Familien. Gemeinsam finden wir die passende Wohnung für Ihre Situation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Gibt es Parkmöglichkeiten?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Direkt gegenüber stehen kostenlose Parkplätze für alle Bewohnerinnen und Bewohner zur Verfügung."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Wie ist die Lage – gibt es Einkaufsmöglichkeiten in der Nähe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Die Versorgung ist sehr gut: REWE und Netto sind bequem zu Fuß erreichbar. Auch eine Bushaltestelle befindet sich in unmittelbarer Nähe."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Was passiert mit meinem Genossenschaftsanteil, wenn ich ausziehe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Der eingezahlte Anteil wird Ihnen nach dem Auszug vollständig zurückerstattet. Die genauen Details besprechen wir gern persönlich mit Ihnen."
+        }
+      }
+    ]
+  }
+  </script>
+</body>
+</html>

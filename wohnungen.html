@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freie Wohnungen – Wohngenossenschaft Waldberg e.G.</title>
+  <meta name="description" content="Aktuelle freie Wohnungen der Wohngenossenschaft Waldberg e.G. in Greiz – oder jetzt auf die Warteliste eintragen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    :root {
+      --c-primary:       #0F766E;
+      --c-primary-light: #14B8A6;
+      --c-primary-dark:  #0D6860;
+      --c-cta:           #0369A1;
+      --c-cta-hover:     #0284C7;
+      --c-bg:            #F0FDFA;
+      --c-bg-section:    #FFFFFF;
+      --c-text:          #134E4A;
+      --c-text-muted:    #5EADA5;
+      --c-text-light:    #99C9C4;
+      --c-border:        #CCEBE8;
+      --font-heading:    'Cinzel', Georgia, serif;
+      --font-body:       'Josefin Sans', Helvetica, sans-serif;
+      --space-xs: .5rem; --space-sm: 1rem; --space-md: 2rem;
+      --space-lg: 4rem;  --space-xl: 8rem;
+      --max-width: 1200px; --header-h: 76px;
+      --radius-sm: 6px; --radius-md: 12px; --radius-xl: 28px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-fast: 200ms; --dur-mid: 350ms; --dur-slow: 600ms;
+      --shadow-sm: 0 1px 4px rgba(15,118,110,.08);
+      --shadow-md: 0 4px 20px rgba(15,118,110,.12), 0 2px 8px rgba(15,118,110,.06);
+      --glass-bg:     rgba(240,253,250,.88);
+      --glass-border: rgba(20,184,166,.20);
+    }
+
+    body { font-family: var(--font-body); background: var(--c-bg-section); color: var(--c-text); font-size: 16px; line-height: 1.7; }
+    h1,h2,h3,h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.15; letter-spacing: .04em; color: var(--c-text); }
+    a { color: var(--c-primary); }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out); transition-delay: var(--delay, 0ms); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-md); }
+
+    /* ── NAV ── */
+    .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--header-h); display: flex; align-items: center; background: var(--glass-bg); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border-bottom: 1px solid var(--glass-border); box-shadow: var(--shadow-sm); }
+    .nav-inner { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo-img { height: 56px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-link { font-family: var(--font-body); font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--c-text); padding: 8px 14px; border-radius: 8px; text-decoration: none; position: relative; transition: color var(--dur-fast), background var(--dur-fast); }
+    .nav-link::after { content: ''; position: absolute; bottom: 4px; left: 14px; right: 14px; height: 2px; background: var(--c-primary); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-fast) var(--ease-out); border-radius: 2px; }
+    .nav-link:hover::after, .nav-link.is-active::after { transform: scaleX(1); }
+    .nav-link:hover { color: var(--c-primary); }
+    .nav-link.is-active { color: var(--c-primary); }
+    .nav-link-cta { background: var(--c-cta); color: #fff !important; padding: 9px 20px; border-radius: 100px; }
+    .nav-link-cta::after { display: none; }
+    .nav-link-cta:hover { background: var(--c-cta-hover); transform: translateY(-1px); }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-menu { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%) translateY(-4px); background: var(--c-bg-section); border: 1px solid var(--c-border); border-radius: var(--radius-md); padding: 6px 0; min-width: 185px; box-shadow: var(--shadow-md); z-index: 200; opacity: 0; pointer-events: none; transition: opacity var(--dur-fast), transform var(--dur-fast); text-align: left; }
+    .nav-dropdown-menu::before { content: ''; position: absolute; top: -10px; left: 0; right: 0; height: 10px; }
+    .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .nav-dropdown-item { display: block; padding: 9px 18px; font-family: var(--font-body); font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--c-text); text-decoration: none; transition: background var(--dur-fast), color var(--dur-fast); }
+    .nav-dropdown-item:hover { background: var(--c-bg); color: var(--c-primary); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { width: 24px; height: 2px; background: var(--c-text); border-radius: 2px; }
+    .nav-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(13,27,26,.96); backdrop-filter: blur(12px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-md); opacity: 0; pointer-events: none; transition: opacity var(--dur-mid); }
+    .nav-overlay.is-open { opacity: 1; pointer-events: all; }
+    .nav-overlay .nav-link { font-size: 1.1rem; color: rgba(240,253,250,.85); }
+    .nav-overlay .nav-link:hover, .nav-overlay .nav-link.is-active { color: #F0FDFA; }
+    .nav-overlay-close { position: absolute; top: var(--space-md); right: var(--space-md); background: none; border: none; color: rgba(240,253,250,.6); font-size: 1.5rem; cursor: pointer; transition: color var(--dur-fast); }
+    .nav-overlay-close:hover { color: #F0FDFA; }
+
+    /* ── PAGE HERO ── */
+    .page-hero { background: var(--c-bg-section); padding: var(--space-lg) 0 var(--space-md); border-bottom: 1px solid var(--c-border); margin-top: var(--header-h); }
+    .breadcrumb { font-size: .8rem; color: var(--c-text-muted); margin-bottom: var(--space-sm); }
+    .breadcrumb a { color: var(--c-primary); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--c-primary-dark); }
+    .breadcrumb-sep { margin: 0 .4rem; color: var(--c-text-light); }
+    .page-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .30em; text-transform: uppercase; color: var(--c-text-muted); margin-bottom: var(--space-sm); }
+    .page-h1 { font-family: var(--font-heading); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.15; color: var(--c-text); margin-bottom: var(--space-sm); }
+    .page-lead { font-size: 1rem; color: var(--c-text-muted); line-height: 1.75; max-width: 52ch; }
+
+    /* ── APARTMENT CARDS ── */
+    .apt-section { padding: var(--space-lg) 0; background: var(--c-bg); }
+    .apt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-md); margin-bottom: var(--space-lg); }
+    .apt-card { background: var(--c-bg-section); border: 1px solid var(--c-border); border-radius: var(--radius-xl); overflow: hidden; transition: transform var(--dur-mid) var(--ease-out), box-shadow var(--dur-mid) var(--ease-out), border-color var(--dur-fast); }
+    .apt-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--c-primary-light); }
+    .apt-card-header { background: var(--c-bg); padding: var(--space-md); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--c-border); }
+    .apt-badge { font-family: var(--font-body); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; background: var(--c-primary); color: #fff; }
+    .apt-entrance { font-size: .78rem; color: var(--c-text-muted); font-weight: 600; }
+    .apt-card-body { padding: var(--space-md); }
+    .apt-type { font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--c-text-muted); margin-bottom: 4px; }
+    .apt-title { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; margin-bottom: var(--space-sm); color: var(--c-text); }
+    .apt-specs { display: flex; gap: var(--space-sm); flex-wrap: wrap; margin-bottom: var(--space-sm); padding-bottom: var(--space-sm); border-bottom: 1px solid var(--c-border); }
+    .spec-item { display: flex; align-items: center; gap: 5px; font-size: .8rem; font-weight: 600; color: var(--c-text-muted); }
+    .spec-item svg { color: var(--c-primary); flex-shrink: 0; }
+    .apt-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); flex-wrap: wrap; }
+    .apt-price { display: flex; align-items: baseline; gap: 4px; }
+    .price-value { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; color: var(--c-primary); }
+    .price-label { font-size: .72rem; color: var(--c-text-muted); }
+    .feat-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .75rem; }
+    .feat-tag { font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; background: var(--c-bg); border: 1px solid var(--c-border); color: var(--c-text-muted); padding: 3px 10px; border-radius: 100px; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state { text-align: center; padding: var(--space-xl) var(--space-md); max-width: 520px; margin: 0 auto; }
+    .empty-icon { width: 80px; height: 80px; border-radius: 50%; background: var(--c-bg-section); border: 1px solid var(--c-border); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-md); }
+    .empty-icon svg { width: 36px; height: 36px; color: var(--c-text-light); }
+    .empty-title { font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: .75rem; }
+    .empty-text { font-size: .9rem; color: var(--c-text-muted); line-height: 1.75; margin-bottom: var(--space-md); }
+
+    /* ── WAITLIST FORM ── */
+    .waitlist-section { background: var(--c-bg-section); padding: var(--space-lg) 0; border-top: 1px solid var(--c-border); }
+    .waitlist-inner { max-width: 680px; }
+    .waitlist-label { font-size: 11px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: var(--c-text-muted); margin-bottom: var(--space-sm); }
+    .waitlist-title { font-family: var(--font-heading); font-size: clamp(1.4rem, 2.5vw, 2rem); margin-bottom: .5rem; }
+    .waitlist-lead { color: var(--c-text-muted); font-size: .9rem; margin-bottom: var(--space-lg); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+    .form-group { margin-bottom: var(--space-sm); display: flex; flex-direction: column; }
+    .form-label { font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--c-text-muted); margin-bottom: 7px; }
+    .form-input { font-family: var(--font-body); font-size: .9rem; padding: 12px 16px; border: 1.5px solid var(--c-border); border-radius: var(--radius-sm); background: var(--c-bg); color: var(--c-text); outline: none; transition: border-color var(--dur-fast), box-shadow var(--dur-fast); width: 100%; }
+    .form-input:focus { border-color: var(--c-primary); box-shadow: 0 0 0 3px rgba(15,118,110,.1); }
+    .form-input.is-invalid { border-color: #C0392B; }
+    .form-input::placeholder { color: var(--c-text-light); }
+    select.form-input { cursor: pointer; }
+    textarea.form-input { resize: vertical; min-height: 100px; line-height: 1.6; }
+    .form-error { font-size: .78rem; color: #C0392B; margin-top: 5px; min-height: 16px; }
+    .form-group-check { flex-direction: row; align-items: flex-start; gap: .6rem; flex-wrap: wrap; }
+    .form-check { width: 18px; height: 18px; accent-color: var(--c-primary); flex-shrink: 0; margin-top: 2px; cursor: pointer; }
+    .form-check-label { font-size: .85rem; color: var(--c-text); cursor: pointer; flex: 1; }
+    .form-link { color: var(--c-primary); text-decoration: underline; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-body); font-weight: 700; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; padding: 14px 28px; border-radius: 100px; border: 2px solid transparent; cursor: pointer; transition: all var(--dur-fast) var(--ease-out); text-decoration: none; white-space: nowrap; }
+    .btn-primary { background: var(--c-cta); color: #fff; border-color: var(--c-cta); }
+    .btn-primary:hover { background: var(--c-cta-hover); border-color: var(--c-cta-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(3,105,161,.28); }
+    .btn-full { width: 100%; }
+    .btn-scroll { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
+    .btn-scroll:hover { background: var(--c-primary-dark); transform: translateY(-2px); }
+
+    .form-success { display: none; background: #f0fdf4; border: 1px solid #86efac; border-radius: var(--radius-md); padding: var(--space-sm) var(--space-md); color: #166534; font-size: .9rem; margin-top: var(--space-sm); line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: #0D1B1A; color: rgba(240,253,250,.6); font-size: .85rem; }
+    .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: var(--space-xl); align-items: start; padding: var(--space-lg) 0; }
+    .footer-logo { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+    .footer-logo-img { height: 72px; width: auto; }
+    .footer-tagline { font-size: .8rem; letter-spacing: .08em; color: rgba(240,253,250,.35); margin-top: var(--space-xs); }
+    .footer-nav { display: flex; gap: var(--space-xl); }
+    .footer-col { display: flex; flex-direction: column; gap: var(--space-xs); }
+    .footer-col h4 { font-family: var(--font-heading); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(240,253,250,.4); margin-bottom: .5rem; }
+    .footer-col a { color: rgba(240,253,250,.6); text-decoration: none; font-size: .85rem; transition: color var(--dur-fast); }
+    .footer-col a:hover { color: var(--c-primary-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm) 0; border-top: 1px solid rgba(240,253,250,.08); font-size: .75rem; color: rgba(240,253,250,.3); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .footer-inner { grid-template-columns: 1fr; gap: var(--space-lg); }
+      .footer-nav { flex-direction: column; gap: var(--space-md); }
+    }
+    @media (max-width: 640px) {
+      :root { --space-xl: 4rem; --space-lg: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: .25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-inner container">
+      <a href="waldberg-website.html" class="nav-logo" aria-label="Zur Startseite">
+        <img src="waldberg-logo.png" class="nav-logo-img" alt="Waldberg Wohngenossenschaft eG">
+      </a>
+      <nav class="nav-links" role="navigation" aria-label="Hauptnavigation">
+        <a href="waldberg-website.html#ueber-uns"      class="nav-link">Über uns</a>
+        <div class="nav-dropdown">
+          <a href="waldberg-website.html#wohnungen" class="nav-link is-active">Wohnungen</a>
+          <div class="nav-dropdown-menu">
+            <a href="wohnblock.html"  class="nav-dropdown-item">Der Wohnblock</a>
+            <a href="wohnungen.html"  class="nav-dropdown-item">Freie Wohnungen</a>
+          </div>
+        </div>
+        <a href="waldberg-website.html#mitgliedschaft" class="nav-link">Mitgliedschaft</a>
+        <a href="aktuelles.html"                       class="nav-link">Aktuelles</a>
+        <a href="ratgeber.html"                        class="nav-link">Ratgeber</a>
+        <a href="waldberg-website.html#kontakt"        class="nav-link nav-link-cta">Kontakt</a>
+      </nav>
+      <button class="nav-hamburger" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div id="nav-overlay" class="nav-overlay" aria-hidden="true" role="dialog" aria-label="Navigation">
+    <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Menü schließen">✕</button>
+    <a href="waldberg-website.html#ueber-uns"      class="nav-link">Über uns</a>
+    <a href="wohnblock.html"                       class="nav-link">Der Wohnblock</a>
+    <a href="wohnungen.html"                       class="nav-link is-active">Freie Wohnungen</a>
+    <a href="waldberg-website.html#mitgliedschaft" class="nav-link">Mitgliedschaft</a>
+    <a href="aktuelles.html"                       class="nav-link">Aktuelles</a>
+    <a href="ratgeber.html"                        class="nav-link">Ratgeber</a>
+    <a href="waldberg-website.html#kontakt"        class="nav-link nav-link-cta">Kontakt</a>
+  </div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="waldberg-website.html">Startseite</a>
+          <span class="breadcrumb-sep">›</span>
+          <a href="waldberg-website.html#wohnungen">Wohnungen</a>
+          <span class="breadcrumb-sep">›</span>
+          <span>Freie Wohnungen</span>
+        </nav>
+        <p class="page-eyebrow">Verfügbare Wohnungen</p>
+        <h1 class="page-h1" id="page-title">Freie Wohnungen</h1>
+        <p class="page-lead" id="page-lead">Aktuelle Wohnungsangebote der Wohngenossenschaft Waldberg e.G. in Greiz.</p>
+      </div>
+    </section>
+
+    <!-- WOHNUNGEN (data-driven) -->
+    <section class="apt-section">
+      <div class="container">
+
+        <!-- Karten (angezeigt wenn Wohnungen verfügbar) -->
+        <div id="apt-grid" class="apt-grid" style="display:none"></div>
+
+        <!-- Warteliste-Button (angezeigt wenn Wohnungen vorhanden) -->
+        <div id="apt-waitlist-cta" style="display:none;text-align:center;margin-bottom:var(--space-lg)">
+          <a href="#waitlist" class="btn btn-scroll">Auf die Warteliste eintragen</a>
+        </div>
+
+        <!-- Empty State (angezeigt wenn keine Wohnungen verfügbar) -->
+        <div id="apt-empty" class="empty-state">
+          <div class="empty-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <h2 class="empty-title">Aktuell keine freien Wohnungen</h2>
+          <p class="empty-text">Da wir eine kleine Genossenschaft sind, werden Wohnungen selten frei – und wenn, dann meist sehr schnell vergeben.</p>
+          <button type="button" id="show-wl-btn" class="btn btn-primary" style="margin-top:var(--space-md)">Auf die Warteliste eintragen</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WARTELISTE-FORMULAR -->
+    <section class="waitlist-section" id="waitlist" style="display:none">
+      <div class="container">
+        <div class="waitlist-inner">
+          <div class="waitlist-label">Warteliste</div>
+          <h2 class="waitlist-title">Auf die Warteliste eintragen</h2>
+          <p class="waitlist-lead">Tragen Sie sich ein – wir melden uns, sobald eine passende Wohnung frei wird.</p>
+
+          <form id="waitlist-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="wl-name" class="form-label">Name *</label>
+                <input type="text" id="wl-name" name="wl-name" class="form-input" placeholder="Vor- und Nachname" required autocomplete="name">
+                <span class="form-error" id="wl-err-name" role="alert"></span>
+              </div>
+              <div class="form-group">
+                <label for="wl-email" class="form-label">E-Mail *</label>
+                <input type="email" id="wl-email" name="wl-email" class="form-input" placeholder="ihre@email.de" required autocomplete="email">
+                <span class="form-error" id="wl-err-email" role="alert"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="wl-phone" class="form-label">Telefon</label>
+                <input type="tel" id="wl-phone" name="wl-phone" class="form-input" placeholder="Optional" autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label for="wl-rooms" class="form-label">Zimmerwunsch *</label>
+                <select id="wl-rooms" name="wl-rooms" class="form-input" required>
+                  <option value="" disabled selected>Bitte wählen…</option>
+                  <option value="egal">Egal</option>
+                  <option value="2zi">2-Zimmer</option>
+                  <option value="3zi">3-Zimmer</option>
+                  <option value="4zi">4+ Zimmer</option>
+                </select>
+                <span class="form-error" id="wl-err-rooms" role="alert"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="wl-rent" class="form-label">Max. Kaltmiete</label>
+                <select id="wl-rent" name="wl-rent" class="form-input">
+                  <option value="" disabled selected>Bitte wählen…</option>
+                  <option value="350">Bis 350 €</option>
+                  <option value="450">350 – 450 €</option>
+                  <option value="550">450 – 550 €</option>
+                  <option value="550+">Über 550 €</option>
+                </select>
+              </div>
+              <div class="form-group" style="justify-content:flex-end">
+                <label class="form-label">&nbsp;</label>
+                <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.85rem">
+                  <input type="checkbox" id="wl-ground" name="wl-ground" class="form-check" style="margin:0">
+                  Erdgeschoss bevorzugt
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="wl-notes" class="form-label">Anmerkungen / Wünsche</label>
+              <textarea id="wl-notes" name="wl-notes" class="form-input" placeholder="Besondere Wünsche, Haustiere, barrierefreier Zugang …" rows="3"></textarea>
+            </div>
+            <div class="form-group form-group-check">
+              <input type="checkbox" id="wl-privacy" name="wl-privacy" class="form-check" required>
+              <label for="wl-privacy" class="form-check-label">
+                Ich habe die <a href="#" class="form-link">Datenschutzerklärung</a> gelesen und stimme zu. *
+              </label>
+              <span class="form-error" id="wl-err-privacy" role="alert" style="width:100%;margin-left:26px"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="wl-submit" style="margin-top:var(--space-xs)">
+              Auf die Warteliste eintragen
+            </button>
+            <div class="form-success" id="wl-success" role="alert">
+              Vielen Dank! Wir haben Sie auf unsere Warteliste eingetragen und melden uns, sobald eine passende Wohnung frei wird.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div>
+        <div class="footer-logo">
+          <img src="waldberg-logo.png" class="footer-logo-img" alt="Waldberg Wohngenossenschaft eG">
+        </div>
+        <p class="footer-tagline">Gemeinsam wohnen. Gemeinsam gestalten.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer-Navigation">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="waldberg-website.html#ueber-uns">Über uns</a>
+          <a href="waldberg-website.html#wohnungen">Wohnungen</a>
+          <a href="waldberg-website.html#mitgliedschaft">Mitgliedschaft</a>
+          <a href="waldberg-website.html#kontakt">Kontakt</a>
+        </div>
+        <div class="footer-col">
+          <h4>Ratgeber</h4>
+          <a href="blog-genossenschaftswohnung.html">Was ist eine Genossenschaftswohnung?</a>
+          <a href="blog-wohnungsmarkt-greiz.html">Mietpreise in Greiz 2026</a>
+        </div>
+        <div class="footer-col">
+          <h4>Rechtliches</h4>
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">Satzung</a>
+          <a href="#">Jahresbericht</a>
+          <a href="mitglieder.html">Mitgliederbereich</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 Wohngenossenschaft Waldberg e.G. · Greiz, Thüringen</p>
+      <p>Eingetragen im Genossenschaftsregister</p>
+    </div>
+  </footer>
+
+  <script src="apartments-data.js"></script>
+  <script>
+    // ─── NAV ─────────────────────────────────────────────────────
+    const navToggle  = document.getElementById('nav-toggle');
+    const navOverlay = document.getElementById('nav-overlay');
+    const navClose   = document.getElementById('nav-overlay-close');
+    navToggle.addEventListener('click', () => { navOverlay.classList.add('is-open'); navOverlay.removeAttribute('aria-hidden'); navToggle.setAttribute('aria-expanded','true'); });
+    const closeOverlay = () => { navOverlay.classList.remove('is-open'); navOverlay.setAttribute('aria-hidden','true'); navToggle.setAttribute('aria-expanded','false'); };
+    navClose.addEventListener('click', closeOverlay);
+    navOverlay.addEventListener('click', e => { if (e.target === navOverlay) closeOverlay(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
+
+    // ─── APARTMENTS RENDER ────────────────────────────────────────
+    const grid    = document.getElementById('apt-grid');
+    const empty   = document.getElementById('apt-empty');
+    const wlCta   = document.getElementById('apt-waitlist-cta');
+
+    if (typeof APARTMENTS !== 'undefined' && APARTMENTS.length > 0) {
+      empty.style.display = 'none';
+      grid.style.display  = 'grid';
+      wlCta.style.display = 'block';
+      document.getElementById('waitlist').style.display = 'block';
+
+      document.getElementById('page-lead').textContent =
+        APARTMENTS.length === 1
+          ? 'Aktuell ist 1 Wohnung verfügbar. Tragen Sie sich außerdem gern auf die Warteliste ein.'
+          : `Aktuell sind ${APARTMENTS.length} Wohnungen verfügbar. Tragen Sie sich außerdem gern auf die Warteliste ein.`;
+
+      grid.innerHTML = APARTMENTS.map(a => `
+        <div class="apt-card">
+          <div class="apt-card-header">
+            <div class="apt-entrance">Eingang ${a.entrance} · ${a.floor}</div>
+            <span class="apt-badge">Frei</span>
+          </div>
+          <div class="apt-card-body">
+            <div class="apt-type">${a.type}</div>
+            <div class="apt-title">${a.size} m² · ${a.type}</div>
+            <div class="apt-specs">
+              <span class="spec-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                ${a.size} m²
+              </span>
+              <span class="spec-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                ${a.floor}
+              </span>
+            </div>
+            <div class="apt-footer">
+              <div class="apt-price">
+                <span class="price-value">${a.rent} €</span>
+                <span class="price-label">Kaltmiete / Monat</span>
+              </div>
+              <span style="font-size:.78rem;color:var(--c-text-muted)">ab ${a.available}</span>
+            </div>
+            ${a.features && a.features.length ? `
+              <div class="feat-tags">
+                ${a.features.map(f => `<span class="feat-tag">${f}</span>`).join('')}
+              </div>` : ''}
+          </div>
+        </div>`).join('');
+    }
+
+    // ─── WARTELISTE ANZEIGEN ──────────────────────────────────────
+    const showWlBtn = document.getElementById('show-wl-btn');
+    if (showWlBtn) {
+      showWlBtn.addEventListener('click', () => {
+        const section = document.getElementById('waitlist');
+        section.style.display = 'block';
+        showWlBtn.style.display = 'none';
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    // ─── SCROLL REVEAL ────────────────────────────────────────────
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ─── WAITLIST FORM VALIDATION ─────────────────────────────────
+    const form   = document.getElementById('waitlist-form');
+    const submit = document.getElementById('wl-submit');
+
+    function setError(id, msg) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = msg;
+    }
+    function clearErrors() {
+      ['wl-err-name','wl-err-email','wl-err-rooms','wl-err-privacy'].forEach(id => setError(id, ''));
+      document.querySelectorAll('.form-input.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+    }
+    function markInvalid(inputId, errId, msg) {
+      const inp = document.getElementById(inputId);
+      if (inp) inp.classList.add('is-invalid');
+      setError(errId, msg);
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      clearErrors();
+      let valid = true;
+
+      const name  = document.getElementById('wl-name').value.trim();
+      const email = document.getElementById('wl-email').value.trim();
+      const rooms = document.getElementById('wl-rooms').value;
+      const priv  = document.getElementById('wl-privacy').checked;
+
+      if (name.length < 2)  { markInvalid('wl-name','wl-err-name','Bitte geben Sie Ihren Namen ein.'); valid = false; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { markInvalid('wl-email','wl-err-email','Bitte geben Sie eine gültige E-Mail-Adresse ein.'); valid = false; }
+      if (!rooms)            { markInvalid('wl-rooms','wl-err-rooms','Bitte wählen Sie eine Zimmerzahl.'); valid = false; }
+      if (!priv)             { setError('wl-err-privacy','Bitte stimmen Sie der Datenschutzerklärung zu.'); valid = false; }
+
+      if (!valid) return;
+
+      submit.disabled = true;
+      submit.textContent = 'Wird eingetragen …';
+
+      setTimeout(() => {
+        form.querySelectorAll('input,select,textarea').forEach(el => { el.value = ''; if (el.type === 'checkbox') el.checked = false; });
+        clearErrors();
+        submit.disabled = false;
+        submit.textContent = 'Auf die Warteliste eintragen';
+        const success = document.getElementById('wl-success');
+        success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 600);
+    });
+  </script>
+
+</body>
+</html>
