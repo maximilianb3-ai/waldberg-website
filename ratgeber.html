@@ -349,6 +349,7 @@
     </div>
   </footer>
 
+  <script src="cms-blog.js"></script>
   <script>
     const navToggle  = document.getElementById('nav-toggle');
     const navOverlay = document.getElementById('nav-overlay');
@@ -372,6 +373,25 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ─── CMS BLOG EINTRÄGE ────────────────────────────────────
+    if (typeof CMS_BLOG !== 'undefined' && CMS_BLOG.length > 0) {
+      const grid = document.querySelector('.blog-grid');
+      const MONTHS = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
+      CMS_BLOG.forEach((post, i) => {
+        const d = new Date(post.date);
+        const dateStr = `${d.getDate()}. ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+        const el = document.createElement('div');
+        el.className = 'blog-card reveal';
+        el.style.setProperty('--delay', `${(i + 3) * 80}ms`);
+        el.innerHTML = `
+          <span class="blog-card-tag">${dateStr}</span>
+          <h2 class="blog-card-title">${post.title}</h2>
+          <p class="blog-card-excerpt">${post.excerpt}</p>`;
+        grid.appendChild(el);
+        observer.observe(el);
+      });
+    }
   </script>
 
 </body>

@@ -372,6 +372,7 @@
     </div>
   </footer>
 
+  <script src="cms-news.js"></script>
   <script>
     // ─── NAV ──────────────────────────────────────────────────
     const navToggle  = document.getElementById('nav-toggle');
@@ -405,10 +406,9 @@
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
     // ─── NEWS ─────────────────────────────────────────────────
-    // Neue Meldung? Einfach oben einen Block einfügen.
-    // Datumsformat: "YYYY-MM-DD"
-    // category: "info" | "wartung" | "termin"
-    const NEWS = [
+    // CMS-Einträge (aus _news/*.md, vom Build erzeugt) werden
+    // automatisch vorangestellt. Hardcoded-Einträge bleiben als Fallback.
+    const NEWS_STATIC = [
       {
         date: "2026-05-28",
         category: "termin",
@@ -428,6 +428,7 @@
         text: "Im Innenhof wurden überdachte Fahrradständer aufgestellt. Die Nutzung ist für alle Bewohnerinnen und Bewohner kostenfrei."
       }
     ];
+    const NEWS = [...(typeof CMS_NEWS !== 'undefined' ? CMS_NEWS : []), ...NEWS_STATIC];
 
     const MONTHS = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
     const TAG_LABELS = { info: "Info", wartung: "Wartung", termin: "Termin" };
