@@ -1,0 +1,49 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: uploads
+
+collections:
+  - name: blog
+    label: Blog
+    folder: _blog
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: Titel,  name: title, widget: string }
+      - { label: Datum,  name: date,  widget: datetime }
+      - { label: Inhalt, name: body,  widget: markdown }
+
+  - name: news
+    label: Aktuelles
+    folder: _news
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: Titel,     name: title,    widget: string }
+      - { label: Datum,     name: date,     widget: datetime }
+      - label: Kategorie
+        name: category
+        widget: select
+        options:
+          - { label: Information, value: info }
+          - { label: Wartung,     value: wartung }
+          - { label: Termin,      value: termin }
+      - { label: Inhalt, name: body, widget: markdown }
+
+  - name: wohnungen
+    label: Wohnungen
+    folder: _wohnungen
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Titel,        name: titel,       widget: string }
+      - { label: Zimmer,       name: zimmer,       widget: number, value_type: int, min: 1 }
+      - label: Status
+        name: status
+        widget: select
+        options:
+          - { label: Verfügbar, value: verfügbar }
+          - { label: Belegt,    value: belegt }
+      - { label: Beschreibung, name: beschreibung, widget: markdown }
