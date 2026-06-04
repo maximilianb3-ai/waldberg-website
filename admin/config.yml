@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: maximilianb3-ai/waldberg-website
   branch: main
+  base_url: https://darling-hamster-4abdf5.netlify.app
+  auth_endpoint: /.netlify/functions/auth
 
 media_folder: uploads
 
