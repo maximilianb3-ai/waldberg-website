@@ -23,10 +23,23 @@ exports.handler = async (event) => {
     };
   }
 
-  const payload = JSON.stringify('authorization:github:success:' + JSON.stringify({ token: data.access_token, provider: 'github' }));
+  const token = data.access_token;
   return {
     statusCode: 200,
     headers: { 'Content-Type': 'text/html' },
-    body: `<script>window.opener&&window.opener.postMessage(${payload},'*');window.close();</script>`,
+    body: `<!DOCTYPE html><html><body><script>
+      (function() {
+        var provider = 'github';
+        var token = ${JSON.stringify(token)};
+        function receiveMessage(e) {
+          window.opener.postMessage(
+            'authorization:' + provider + ':success:' + JSON.stringify({ token: token, provider: provider }),
+            e.origin
+          );
+        }
+        window.addEventListener('message', receiveMessage, false);
+        window.opener.postMessage('authorizing:' + provider, '*');
+      })();
+    <\/script></body></html>`,
   };
 };
