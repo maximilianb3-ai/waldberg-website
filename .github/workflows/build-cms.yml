@@ -8,6 +8,9 @@ on:
       - '_blog/**'
       - '_wohnungen/**'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
