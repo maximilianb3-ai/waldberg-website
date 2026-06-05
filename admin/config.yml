@@ -2,8 +2,8 @@ backend:
   name: github
   repo: maximilianb3-ai/waldberg-website
   branch: main
-  base_url: https://DEIN-AUTH-WORKER.workers.dev
-  auth_endpoint: /auth
+  base_url: https://waldberg-auth.maximilianboettger3.workers.dev
+  auth_endpoint: auth
 
 media_folder: uploads
 
