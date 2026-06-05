@@ -10,5 +10,11 @@ const CMS_NEWS = [
     "category": "info",
     "title": "test",
     "text": "test"
+  },
+  {
+    "date": "2026-01-01",
+    "category": "info",
+    "title": "Hausmeister ab 01.01.2026",
+    "text": "Ab dem 01.01.2026 haben wir unseren eigenen Hausmeister für unser Wohnhaus."
   }
 ];
