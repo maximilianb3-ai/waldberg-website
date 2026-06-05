@@ -2,6 +2,12 @@ const CMS_NEWS = [
   {
     "date": "2026-06-05",
     "category": "info",
+    "title": "Neues Dienstfahrzeug ",
+    "text": "Es gibt ein neues Dienstfahrzeug."
+  },
+  {
+    "date": "2026-06-05",
+    "category": "info",
     "title": "Neue Website",
     "text": "Unsere neue Website ist seit Juli 2026 zu erreichen."
   },
