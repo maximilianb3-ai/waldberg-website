@@ -1,0 +1,30 @@
+name: Build CMS Data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_news/**'
+      - '_blog/**'
+      - '_wohnungen/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate CMS data files
+        run: node build.js
+
+      - name: Commit generated files
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add cms-news.js cms-blog.js
+          git diff --staged --quiet || git commit -m "chore: regenerate CMS data files [skip ci]"
+          git push
