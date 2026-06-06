@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datenschutz – Wohngenossenschaft Waldberg e.G.</title>
+  <meta name="description" content="Datenschutzerklärung der Wohngenossenschaft Waldberg e.G. in Greiz, Thüringen.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --c-primary:        #0F766E;
+      --c-primary-light:  #14B8A6;
+      --c-primary-dark:   #0D6860;
+      --c-cta:            #0369A1;
+      --c-cta-hover:      #0284C7;
+      --c-bg:             #F0FDFA;
+      --c-bg-section:     #FFFFFF;
+      --c-text:           #134E4A;
+      --c-text-muted:     #5EADA5;
+      --c-text-light:     #99C9C4;
+      --c-border:         #CCEBE8;
+      --font-heading:     'Cinzel', Georgia, serif;
+      --font-body:        'Josefin Sans', Helvetica, sans-serif;
+      --space-xs:  0.5rem;
+      --space-sm:  1rem;
+      --space-md:  2rem;
+      --space-lg:  4rem;
+      --space-xl:  8rem;
+      --max-width: 1200px;
+      --header-h:  76px;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-xl: 28px;
+      --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-fast:  200ms;
+      --dur-mid:   350ms;
+      --dur-slow:  600ms;
+      --shadow-sm: 0 1px 4px rgba(15,118,110,.08), 0 1px 2px rgba(15,118,110,.04);
+      --shadow-md: 0 4px 20px rgba(15,118,110,.12), 0 2px 8px rgba(15,118,110,.06);
+      --glass-bg:     rgba(240,253,250,.88);
+      --glass-border: rgba(20,184,166,.20);
+    }
+    body { font-family: var(--font-body); background: var(--c-bg-section); color: var(--c-text); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3 { font-family: var(--font-heading); font-weight: 700; line-height: 1.15; letter-spacing: .04em; color: var(--c-text); }
+    a { color: var(--c-primary); }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-md); }
+
+    .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--header-h); display: flex; align-items: center; background: var(--glass-bg); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border-bottom: 1px solid var(--glass-border); box-shadow: var(--shadow-sm); }
+    .nav-inner { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo-img { height: 56px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: var(--space-md); }
+    .nav-link { font-family: var(--font-body); font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--c-text); text-decoration: none; position: relative; padding: .25rem 0; transition: color var(--dur-fast); }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--c-primary); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-mid) var(--ease-out); }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link-cta { background: var(--c-cta); color: #fff !important; padding: .5rem 1.2rem; border-radius: 100px; transition: background var(--dur-fast), transform var(--dur-fast) !important; }
+    .nav-link-cta::after { display: none; }
+    .nav-link-cta:hover { background: var(--c-cta-hover); transform: translateY(-1px); }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-menu { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%) translateY(-4px); background: var(--c-bg-section); border: 1px solid var(--c-border); border-radius: var(--radius-md); padding: 6px 0; min-width: 185px; box-shadow: var(--shadow-md); z-index: 200; opacity: 0; pointer-events: none; transition: opacity var(--dur-fast), transform var(--dur-fast); text-align: left; }
+    .nav-dropdown-menu::before { content: ''; position: absolute; top: -10px; left: 0; right: 0; height: 10px; }
+    .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .nav-dropdown-item { display: block; padding: 9px 18px; font-family: var(--font-body); font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--c-text); text-decoration: none; transition: background var(--dur-fast), color var(--dur-fast); }
+    .nav-dropdown-item:hover { background: var(--c-bg); color: var(--c-primary); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { width: 24px; height: 2px; background: var(--c-text); border-radius: 2px; }
+    .nav-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(13,27,26,.96); backdrop-filter: blur(12px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-md); opacity: 0; pointer-events: none; transition: opacity var(--dur-mid); }
+    .nav-overlay.is-open { opacity: 1; pointer-events: all; }
+    .nav-overlay .nav-link { font-size: 1.1rem; color: rgba(240,253,250,.85); }
+    .nav-overlay .nav-link:hover { color: #F0FDFA; }
+    .nav-overlay-close { position: absolute; top: var(--space-md); right: var(--space-md); background: none; border: none; color: rgba(240,253,250,.6); font-size: 1.5rem; cursor: pointer; transition: color var(--dur-fast); }
+    .nav-overlay-close:hover { color: #F0FDFA; }
+
+    .page-hero { background: var(--c-bg-section); padding: var(--space-lg) 0 var(--space-md); border-bottom: 1px solid var(--c-border); margin-top: var(--header-h); }
+    .breadcrumb { font-size: .8rem; color: var(--c-text-muted); margin-bottom: var(--space-sm); }
+    .breadcrumb a { color: var(--c-primary); text-decoration: none; }
+    .breadcrumb-sep { margin: 0 .4rem; color: var(--c-text-light); }
+    .page-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .30em; text-transform: uppercase; color: var(--c-text-muted); margin-bottom: var(--space-sm); }
+    .page-h1 { font-family: var(--font-heading); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.15; color: var(--c-text); margin-bottom: var(--space-sm); }
+
+    .legal-section { padding: var(--space-lg) 0; }
+    .legal-content { max-width: 720px; }
+    .legal-content h2 { font-size: 1.1rem; margin: var(--space-md) 0 var(--space-xs); }
+    .legal-content h2:first-child { margin-top: 0; }
+    .legal-content p { font-size: .95rem; color: var(--c-text-muted); margin-bottom: .75rem; }
+    .legal-content ul { font-size: .95rem; color: var(--c-text-muted); margin-bottom: .75rem; padding-left: 1.5rem; }
+    .legal-content li { margin-bottom: .3rem; }
+    .legal-content a { color: var(--c-primary); }
+
+    .site-footer { background: #0D1B1A; color: rgba(240,253,250,.6); font-size: .85rem; }
+    .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: var(--space-xl); align-items: start; padding: var(--space-lg) 0; }
+    .footer-logo { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+    .footer-logo-img { height: 72px; width: auto; }
+    .footer-tagline { font-size: .8rem; letter-spacing: .08em; color: rgba(240,253,250,.35); margin-top: var(--space-xs); }
+    .footer-nav { display: flex; gap: var(--space-xl); }
+    .footer-col { display: flex; flex-direction: column; gap: var(--space-xs); }
+    .footer-col h4 { font-family: var(--font-heading); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(240,253,250,.4); margin-bottom: .5rem; }
+    .footer-col a { color: rgba(240,253,250,.6); text-decoration: none; font-size: .85rem; transition: color var(--dur-fast); }
+    .footer-col a:hover { color: var(--c-primary-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm) 0; border-top: 1px solid rgba(240,253,250,.08); font-size: .75rem; color: rgba(240,253,250,.3); }
+
+    @media (max-width: 900px) { .nav-links { display: none; } .nav-hamburger { display: flex; } .footer-inner { grid-template-columns: 1fr; gap: var(--space-lg); } .footer-nav { flex-direction: column; gap: var(--space-md); } }
+    @media (max-width: 640px) { :root { --space-xl: 4rem; --space-lg: 2.5rem; } .footer-bottom { flex-direction: column; text-align: center; gap: .25rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-inner container">
+      <a href="index.html" class="nav-logo" aria-label="Zur Startseite">
+        <img src="waldberg-logo.png" class="nav-logo-img" alt="Waldberg Wohngenossenschaft eG">
+      </a>
+      <nav class="nav-links" role="navigation" aria-label="Hauptnavigation">
+        <a href="index.html#ueber-uns"      class="nav-link">Über uns</a>
+        <div class="nav-dropdown">
+          <a href="index.html#wohnungen" class="nav-link">Wohnungen</a>
+          <div class="nav-dropdown-menu">
+            <a href="wohnblock.html" class="nav-dropdown-item">Der Wohnblock</a>
+            <a href="wohnungen.html" class="nav-dropdown-item">Freie Wohnungen</a>
+          </div>
+        </div>
+        <a href="index.html#mitgliedschaft" class="nav-link">Mitgliedschaft</a>
+        <a href="aktuelles.html"            class="nav-link">Aktuelles</a>
+        <a href="ratgeber.html"             class="nav-link">Ratgeber</a>
+        <a href="index.html#kontakt"        class="nav-link nav-link-cta">Kontakt</a>
+      </nav>
+      <button class="nav-hamburger" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div id="nav-overlay" class="nav-overlay" aria-hidden="true" role="dialog" aria-label="Navigation">
+    <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Menü schließen">✕</button>
+    <a href="index.html#ueber-uns"      class="nav-link">Über uns</a>
+    <a href="wohnblock.html"            class="nav-link">Der Wohnblock</a>
+    <a href="wohnungen.html"            class="nav-link">Freie Wohnungen</a>
+    <a href="index.html#mitgliedschaft" class="nav-link">Mitgliedschaft</a>
+    <a href="ratgeber.html"             class="nav-link">Ratgeber</a>
+    <a href="aktuelles.html"            class="nav-link">Aktuelles</a>
+    <a href="index.html#kontakt"        class="nav-link nav-link-cta">Kontakt</a>
+  </div>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Startseite</a>
+          <span class="breadcrumb-sep" aria-hidden="true">›</span>
+          <span>Datenschutz</span>
+        </nav>
+        <p class="page-eyebrow">Rechtliches</p>
+        <h1 class="page-h1">Datenschutzerklärung</h1>
+      </div>
+    </section>
+
+    <section class="legal-section">
+      <div class="container">
+        <div class="legal-content">
+
+          <h2>1. Verantwortlicher</h2>
+          <p>
+            Wohngenossenschaft Waldberg e.G.<br>
+            Kurt-Tucholsky-Straße 12, 07973 Greiz<br>
+            Telefon: 03661 / 430015<br>
+            E-Mail: <a href="mailto:wgwaldberg@gmx.de">wgwaldberg@gmx.de</a>
+          </p>
+
+          <h2>2. Hosting</h2>
+          <p>
+            Diese Website wird über GitHub Pages (GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA) gehostet.
+            Beim Aufruf der Website werden technische Verbindungsdaten (u. a. IP-Adresse, Zeitstempel) an GitHub-Server übermittelt.
+            Dies geschieht auf Basis von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren und stabilen Betrieb der Website).
+            Weitere Informationen: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Datenschutzrichtlinie</a>.
+          </p>
+
+          <h2>3. Kontaktformular und Warteliste</h2>
+          <p>
+            Wenn Sie das Kontaktformular oder das Wartelistenformular nutzen, werden folgende Daten erhoben:
+          </p>
+          <ul>
+            <li>Name</li>
+            <li>E-Mail-Adresse</li>
+            <li>Telefonnummer (optional)</li>
+            <li>Ihre Anfrage oder Angaben zur gewünschten Wohnung</li>
+          </ul>
+          <p>
+            Die Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage bzw. zur Führung der Warteliste verwendet.
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw. Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO.
+          </p>
+          <p>
+            Die Daten werden nicht an Dritte zu Werbezwecken weitergegeben. Die Speicherung erfolgt nur so lange,
+            wie es zur Bearbeitung Ihrer Anfrage erforderlich ist.
+          </p>
+
+          <h2>4. Datenverarbeitung über Make (Integromat)</h2>
+          <p>
+            Zur technischen Weiterleitung von Formularinhalten nutzen wir den Dienst Make (Celonis SE, 1 World Trade Center, New York, NY 10007, USA / europäische Server verfügbar).
+            Ihre Formulardaten werden über einen Make-Webhook übermittelt und anschließend per E-Mail an uns weitergeleitet. Make verarbeitet die Daten nur im Auftrag und nicht zu eigenen Zwecken.
+            Weitere Informationen: <a href="https://www.make.com/en/privacy-notice" target="_blank" rel="noopener">Make Datenschutzhinweis</a>.
+          </p>
+
+          <h2>5. Cookies und Tracking</h2>
+          <p>
+            Diese Website verwendet keine Cookies und keine Analyse- oder Tracking-Tools. Es werden keine Nutzerprofile erstellt.
+          </p>
+
+          <h2>6. Ihre Rechte</h2>
+          <p>Sie haben gegenüber uns folgende Rechte hinsichtlich Ihrer personenbezogenen Daten:</p>
+          <ul>
+            <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
+            <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
+            <li>Recht auf Löschung (Art. 17 DSGVO)</li>
+            <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+            <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+            <li>Recht auf Widerspruch (Art. 21 DSGVO)</li>
+          </ul>
+          <p>
+            Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: <a href="mailto:wgwaldberg@gmx.de">wgwaldberg@gmx.de</a>
+          </p>
+
+          <h2>7. Beschwerderecht</h2>
+          <p>
+            Sie haben das Recht, sich bei der zuständigen Datenschutzaufsichtsbehörde zu beschweren.
+            Für Thüringen ist dies der Thüringer Landesbeauftragte für Datenschutz und Informationsfreiheit (TLfDI),
+            Häßlerstraße 8, 99096 Erfurt, <a href="https://www.tlfdi.de" target="_blank" rel="noopener">www.tlfdi.de</a>.
+          </p>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div>
+        <div class="footer-logo">
+          <img src="waldberg-logo.png" class="footer-logo-img" alt="Waldberg Wohngenossenschaft eG">
+        </div>
+        <p class="footer-tagline">Gemeinsam wohnen. Gemeinsam gestalten.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer-Navigation">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="index.html#ueber-uns">Über uns</a>
+          <a href="index.html#wohnungen">Wohnungen</a>
+          <a href="index.html#mitgliedschaft">Mitgliedschaft</a>
+          <a href="index.html#kontakt">Kontakt</a>
+        </div>
+        <div class="footer-col">
+          <h4>Ratgeber</h4>
+          <a href="blog-genossenschaftswohnung.html">Was ist eine Genossenschaftswohnung?</a>
+          <a href="blog-wohnungsmarkt-greiz.html">Mietpreise in Greiz 2026</a>
+        </div>
+        <div class="footer-col">
+          <h4>Rechtliches</h4>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html" class="is-active">Datenschutz</a>
+          <a href="#">Satzung</a>
+          <a href="#">Jahresbericht</a>
+          <a href="mitglieder.html">Mitgliederbereich</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 Wohngenossenschaft Waldberg e.G. · Greiz, Thüringen</p>
+      <p>Eingetragen im Genossenschaftsregister</p>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle  = document.getElementById('nav-toggle');
+    const navOverlay = document.getElementById('nav-overlay');
+    const navClose   = document.getElementById('nav-overlay-close');
+    navToggle.addEventListener('click', () => { navOverlay.classList.add('is-open'); navOverlay.setAttribute('aria-hidden', 'false'); navToggle.setAttribute('aria-expanded', 'true'); });
+    [navClose, navOverlay].forEach(el => { el.addEventListener('click', e => { if (e.target === navOverlay || e.target === navClose) { navOverlay.classList.remove('is-open'); navOverlay.setAttribute('aria-hidden', 'true'); navToggle.setAttribute('aria-expanded', 'false'); } }); });
+  </script>
+
+</body>
+</html>
