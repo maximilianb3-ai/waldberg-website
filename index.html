@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wohngenossenschaft Waldberg e.G. – Greiz</title>
-  <meta name="description" content="Die Wohngenossenschaft Waldberg e.G. vermietet und verwaltet bezahlbare Wohnungen in Greiz, Thüringen. Werden Sie Mitglied.">
+  <title>Wohngenossenschaft Waldberg eG – Bezahlbar wohnen in Greiz, Thüringen</title>
+  <meta name="description" content="Seit 1999 bieten wir bezahlbare 2- bis 4-Raum-Wohnungen in Greiz. Als Genossenschaft wohnen Sie sicher und dauerhaft – ohne Eigenbedarfsrisiko. Jetzt auf die Warteliste eintragen.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
@@ -413,7 +413,7 @@
       width: 100%;
       height: 100vh;
       overflow: hidden;
-      background: #0D1B1A;
+      background: #0B2E28;
     }
     .hero-bg-img {
       position: absolute;
@@ -481,6 +481,15 @@
       color: #fff;
     }
     .hero-heading-accent { color: var(--c-primary-light); }
+    .hero-subtitle {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: rgba(240,253,250,.60);
+      max-width: 480px;
+      margin: 0 auto var(--space-sm);
+      font-family: var(--font-body);
+    }
     .hero-body {
       font-size: 1.1rem;
       line-height: 1.75;
@@ -1449,16 +1458,13 @@
         <div class="hero-overlay" aria-hidden="true"></div>
 <div class="hero-inner">
           <div class="hero-content">
-            <p class="hero-eyebrow reveal">Wohngenossenschaft Waldberg Greiz</p>
+            <p class="hero-eyebrow reveal">Wohngenossenschaft Waldberg eG · Greiz, Thüringen</p>
             <h1 class="hero-heading reveal" style="--delay:80ms">
-              Zuhause.<br>
-              Gemeinsam.<br>
+              Ihr Zuhause<br>
+              in Greiz –<br>
               <span class="hero-heading-accent">Waldberg.</span>
             </h1>
-            <p class="hero-body reveal" style="--delay:160ms">
-              Seit 1999 schaffen wir bezahlbaren, sicheren Wohnraum in Greiz.
-              Als Genossenschaft gehören wir unseren Mitgliedern – nicht anonymen Investoren.
-            </p>
+            <p class="hero-subtitle reveal" style="--delay:160ms">Wo Gemeinschaft Vertrauen schafft: Wir gestalten Lebensräume mit Herz und Verantwortung.</p>
             <div class="hero-cta-group reveal" style="--delay:240ms">
               <a href="#wohnungen" class="hero-btn-aero">
                 <span class="hero-btn-text">Wohnungen ansehen</span>
@@ -1900,16 +1906,16 @@
           </details>
 
           <details class="faq-item reveal" style="--delay:120ms">
-            <summary class="faq-q">Gibt es Parkmöglichkeiten?</summary>
+            <summary class="faq-q">Wie werde ich Mitglied der Genossenschaft?</summary>
             <div class="faq-a">
-              <p>Ja. Direkt gegenüber stehen kostenlose Parkplätze für alle Bewohnerinnen und Bewohner zur Verfügung.</p>
+              <p>Die Mitgliedschaft ist an den Bezug einer Wohnung gekoppelt. Nehmen Sie Kontakt mit uns auf – wir begleiten Sie durch alle Schritte: von der Wohnungsauswahl über die Zeichnung von Geschäftsanteilen bis zum Einzug mit Dauernutzungsvertrag.</p>
             </div>
           </details>
 
           <details class="faq-item reveal" style="--delay:160ms">
-            <summary class="faq-q">Wie ist die Lage – gibt es Einkaufsmöglichkeiten in der Nähe?</summary>
+            <summary class="faq-q">Wie hoch ist der Genossenschaftsanteil?</summary>
             <div class="faq-a">
-              <p>Die Versorgung ist sehr gut: REWE und Netto sind bequem zu Fuß erreichbar. Auch eine Bushaltestelle befindet sich in unmittelbarer Nähe.</p>
+              <p>Die Höhe der Geschäftsanteile ist in unserer Satzung festgelegt und richtet sich nach der Wohnungsgröße. Gern informieren wir Sie in einem persönlichen Gespräch über alle Details – sprechen Sie uns einfach an.</p>
             </div>
           </details>
 
@@ -2215,6 +2221,30 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Wohngenossenschaft Waldberg eG",
+    "description": "Wohnungsgenossenschaft mit 119 bezahlbaren 2- bis 4-Raum-Wohnungen in Greiz, Thüringen. Gegründet 1999.",
+    "telephone": "+493661430015",
+    "email": "wgwaldberg@gmx.de",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kurt-Tucholsky-Straße 12",
+      "addressLocality": "Greiz",
+      "postalCode": "07973",
+      "addressRegion": "Thüringen",
+      "addressCountry": "DE"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Thursday"], "opens": "09:00", "closes": "12:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Thursday"], "opens": "13:00", "closes": "17:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday"], "opens": "09:00", "closes": "12:00" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
@@ -2227,18 +2257,18 @@
       },
       {
         "@type": "Question",
-        "name": "Gibt es Parkmöglichkeiten?",
+        "name": "Wie werde ich Mitglied der Genossenschaft?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja. Direkt gegenüber stehen kostenlose Parkplätze für alle Bewohnerinnen und Bewohner zur Verfügung."
+          "text": "Die Mitgliedschaft ist an den Bezug einer Wohnung gekoppelt. Nehmen Sie Kontakt mit uns auf – wir begleiten Sie durch alle Schritte: von der Wohnungsauswahl über die Zeichnung von Geschäftsanteilen bis zum Einzug mit Dauernutzungsvertrag."
         }
       },
       {
         "@type": "Question",
-        "name": "Wie ist die Lage – gibt es Einkaufsmöglichkeiten in der Nähe?",
+        "name": "Wie hoch ist der Genossenschaftsanteil?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Die Versorgung ist sehr gut: REWE und Netto sind bequem zu Fuß erreichbar. Auch eine Bushaltestelle befindet sich in unmittelbarer Nähe."
+          "text": "Die Höhe der Geschäftsanteile ist in unserer Satzung festgelegt und richtet sich nach der Wohnungsgröße. Gern informieren wir Sie in einem persönlichen Gespräch über alle Details – sprechen Sie uns einfach an."
         }
       },
       {
