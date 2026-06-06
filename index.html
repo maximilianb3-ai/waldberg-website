@@ -216,7 +216,7 @@
       text-decoration: none;
     }
     .nav-logo-img {
-      height: 56px;
+      height: 64px;
       width: auto;
       transition: filter var(--dur-mid);
     }
@@ -357,6 +357,7 @@
     .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     /* ─── HEADER: white text on dark hero ───────────────────── */
+    .site-header:not(.scrolled) .nav-logo-img { filter: brightness(0) invert(1); }
     .site-header:not(.scrolled) .logo-name { color: #fff; }
     .site-header:not(.scrolled) .logo-sub  { color: rgba(255,255,255,.5); }
     .site-header:not(.scrolled) .nav-link:not(.nav-link-cta) { color: rgba(255,255,255,.85); }
