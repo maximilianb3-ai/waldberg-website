@@ -469,7 +469,7 @@
       setError(errId, msg);
     }
 
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       clearErrors();
       let valid = true;
@@ -489,7 +489,21 @@
       submit.disabled = true;
       submit.textContent = 'Wird eingetragen …';
 
-      setTimeout(() => {
+      try {
+        await fetch('https://hook.eu1.make.com/uyvjyqn2cjybv0bu97x7v1im5h3bm9w6', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            formular: 'Warteliste',
+            name,
+            email,
+            zimmer: rooms,
+            telefon:     document.getElementById('wl-phone')?.value.trim() || '',
+            miete:       document.getElementById('wl-rent')?.value || '',
+            erdgeschoss: document.getElementById('wl-floor')?.checked ? 'Ja' : 'Nein',
+            anmerkungen: document.getElementById('wl-notes')?.value.trim() || '',
+          })
+        });
         form.querySelectorAll('input,select,textarea').forEach(el => { el.value = ''; if (el.type === 'checkbox') el.checked = false; });
         clearErrors();
         submit.disabled = false;
@@ -497,7 +511,11 @@
         const success = document.getElementById('wl-success');
         success.style.display = 'block';
         success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 600);
+      } catch {
+        submit.disabled = false;
+        submit.textContent = 'Auf die Warteliste eintragen';
+        alert('Fehler beim Senden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns per E-Mail.');
+      }
     });
   </script>
 

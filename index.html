@@ -2119,17 +2119,35 @@
       });
       wlForm.elements['wl-privacy'].addEventListener('change', () => validateWlField('wl-privacy'));
 
-      wlForm.addEventListener('submit', e => {
+      wlForm.addEventListener('submit', async e => {
         e.preventDefault();
         const valid = ['wl-name', 'wl-email', 'wl-rooms', 'wl-privacy'].map(n => validateWlField(n)).every(Boolean);
         if (!valid) return;
         wlSubmit.disabled = true;
         wlSubmit.textContent = 'Wird eingetragen…';
-        setTimeout(() => {
+        try {
+          await fetch('https://hook.eu1.make.com/uyvjyqn2cjybv0bu97x7v1im5h3bm9w6', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              formular: 'Warteliste',
+              name:     wlForm.elements['wl-name'].value.trim(),
+              email:    wlForm.elements['wl-email'].value.trim(),
+              telefon:  wlForm.elements['wl-phone']?.value.trim() || '',
+              zimmer:   wlForm.elements['wl-rooms'].value,
+              miete:    wlForm.elements['wl-rent']?.value || '',
+              erdgeschoss: wlForm.elements['wl-floor']?.checked ? 'Ja' : 'Nein',
+              anmerkungen: wlForm.elements['wl-notes']?.value.trim() || '',
+            })
+          });
           wlForm.querySelectorAll('.form-group').forEach(g => { g.style.display = 'none'; });
           wlSubmit.style.display = 'none';
           wlSuccess.style.display = 'block';
-        }, 900);
+        } catch {
+          wlSubmit.disabled = false;
+          wlSubmit.textContent = 'Auf die Warteliste eintragen';
+          alert('Fehler beim Senden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns per E-Mail.');
+        }
       });
     })();
 
@@ -2161,7 +2179,7 @@
     });
     form.elements['privacy'].addEventListener('change', () => validateField('privacy'));
 
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       const valid = ['name','email','subject','message','privacy'].map(n => validateField(n)).every(Boolean);
       if (!valid) return;
@@ -2170,12 +2188,26 @@
       btn.disabled = true;
       btn.textContent = 'Wird gesendet…';
 
-      setTimeout(() => {
+      try {
+        await fetch('https://hook.eu1.make.com/uyvjyqn2cjybv0bu97x7v1im5h3bm9w6', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            formular:  'Kontakt',
+            name:      form.elements['name'].value.trim(),
+            email:     form.elements['email'].value.trim(),
+            betreff:   form.elements['subject'].value,
+            nachricht: form.elements['message'].value.trim(),
+          })
+        });
         form.querySelectorAll('.form-group').forEach(g => { g.style.display = 'none'; });
         btn.style.display = 'none';
-        const success = document.getElementById('form-success');
-        success.style.display = 'block';
-      }, 900);
+        document.getElementById('form-success').style.display = 'block';
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Nachricht senden';
+        alert('Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an wgwaldberg@gmx.de.');
+      }
     });
   </script>
 
